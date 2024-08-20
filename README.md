@@ -1,48 +1,16 @@
-# With Docker Compose
+# Каталог УрФУ.Онлайн
 
-This example contains everything needed to get a Next.js development and production environment up and running with Docker Compose.
+## Предварительные условия
 
-## Benefits of Docker Compose
+Установите [Docker Desktop](https://docs.docker.com/get-docker) для Mac, Windows или Linux. Docker Desktop включает в себя Docker Compose как часть установки.
 
-- Develop locally without Node.js or TypeScript installed ✨
-- Easy to run, consistent development environment across macOS, Windows, and Linux teams
-- Run multiple Next.js apps, databases, and other microservices in a single deployment
-- Multistage builds combined with [Output Standalone](https://nextjs.org/docs/advanced-features/output-file-tracing#automatically-copying-traced-files) outputs up to 85% smaller apps (Approximately 110 MB compared to 1 GB with create-next-app)
-- Easy configuration with YAML files
+## Разработка
 
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+Сначала запустите сервер разработки:
 
 ```bash
-npx create-next-app --example with-docker-compose with-docker-compose-app
-```
-
-```bash
-yarn create next-app --example with-docker-compose with-docker-compose-app
-```
-
-```bash
-pnpm create next-app --example with-docker-compose with-docker-compose-app
-```
-
-Optionally, after the installation is complete:
-
-- Run `cd next-app`, then run `npm install` or `yarn install` or `pnpm install` to generate a lockfile.
-
-It is recommended to commit a lockfile to version control. Although the example will work without one, build errors are more likely to occur when using the latest version of all dependencies. This way, we're always using a known good configuration to develop and run in production.
-
-## Prerequisites
-
-Install [Docker Desktop](https://docs.docker.com/get-docker) for Mac, Windows, or Linux. Docker Desktop includes Docker Compose as part of the installation.
-
-## Development
-
-First, run the development server:
-
-```bash
-# Create a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
+# Создайте сеть, которая позволит контейнерам общаться
+# друг с другом, используя имя своего контейнера в качестве имени хоста
 docker network create my_network
 
 # Build dev
@@ -52,19 +20,19 @@ docker compose -f docker-compose.dev.yml build
 docker compose -f docker-compose.dev.yml up
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000) в браузере, чтобы увидеть результат.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Вы можете начать редактировать страницу, изменив файл `pages/index.tsx`. Страница будет автоматически обновляться по мере редактирования файла.
 
-## Production
+## Производство
 
-Multistage builds are highly recommended in production. Combined with the Next [Output Standalone](https://nextjs.org/docs/advanced-features/output-file-tracing#automatically-copying-traced-files) feature, only `node_modules` files required for production are copied into the final Docker image.
+В производстве настоятельно рекомендуется использовать многоступенчатые сборки. В сочетании с функцией Next [Output Standalone](https://nextjs.org/docs/advanced-features/output-file-tracing#automatically-copying-traced-files) в финальный образ Docker копируются только файлы `node_modules`, необходимые для производства.
 
-First, run the production server (Final image approximately 110 MB).
+Сначала запустите производственный сервер (финальный образ размером около 110 МБ).
 
 ```bash
-# Create a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
+# Создайте сеть, которая позволит контейнерам общаться
+# друг с другом, используя имя своего контейнера в качестве имени хоста
 docker network create my_network
 
 # Build prod
@@ -74,11 +42,11 @@ docker compose -f docker-compose.prod.yml build
 docker compose -f docker-compose.prod.yml up -d
 ```
 
-Alternatively, run the production server without multistage builds (Final image approximately 1 GB).
+В качестве альтернативы запустите рабочий сервер без многоступенчатых сборок (финальный образ около 1 ГБ).
 
 ```bash
-# Create a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
+# Создайте сеть, которая позволит контейнерам общаться
+# друг с другом, используя имя своего контейнера в качестве имени хоста
 docker network create my_network
 
 # Build prod without multistage
@@ -88,9 +56,9 @@ docker compose -f docker-compose.prod-without-multistage.yml build
 docker compose -f docker-compose.prod-without-multistage.yml up -d
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Откройте [http://localhost:3000](http://localhost:3000).
 
-## Useful commands
+## Полезные команды
 
 ```bash
 # Stop all running containers
