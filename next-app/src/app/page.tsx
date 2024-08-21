@@ -1,24 +1,7 @@
 import Image from 'next/image'
+import { courses } from '@/src/app/data'
 
 export default function Home() {
-  const courses: string[] = [
-    'Основы военной подготовки и безопасность жизнедеятельности',
-    'Безопасность жизнедеятельности',
-    'Естественнонаучная картина мира',
-    'История: 5 подходов к историческому развитию',
-    'История России',
-    'История российской цивилизации',
-    'Инженерная механика',
-    'Информационные технологии и сервисы',
-    'Основы проектной деятельности ',
-    'Основные приложения линейной алгебры в инженерном образовании: векторная алгебра и аналитическая геометрия',
-    'Теория вероятностей и математическая статистика для инженеров',
-    'Физическая культура ',
-    'Философия 3',
-    'Философия и история науки и техники',
-    'Философия и методология науки',
-    'Философия (базовый курс)',
-  ]
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
       <div className="z-10 w-full max-w-5xl items-center justify-between lg:flex mb-12">
@@ -70,14 +53,27 @@ export default function Home() {
       <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-3 lg:text-left">
         {courses.map((course) => (
           <a
-            href="https://openedu.ru/course/urfu/MILITRLIFESAFETY/?session=spring_2024"
-            className="m-3 group bg-white rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+            href={course.link}
+            className="m-3 group flex flex-col justify-between bg-white rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className="mb-3 text-lg font-semibold">{course} </h2>
-            <p className="m-0 text-sm opacity-50"></p>
-            <p>
+            <div>
+              <p className="m-0 text-sm opacity-50">{course.platform}</p>
+
+              <h2 className="mb-3 text-lg font-semibold">{course.title} </h2>
+              <div className={'flex flex-wrap items-center'}>
+                {course.tags.map((tag) => (
+                  <p
+                    key={tag}
+                    className=" m-1 py-1 px-3 text-sm opacity-50 border border-gray-200 border-solid rounded-lg"
+                  >
+                    {tag}
+                  </p>
+                ))}
+              </div>
+            </div>
+            <p className="mt-8">
               Подробнее
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
