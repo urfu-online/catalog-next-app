@@ -1,11 +1,15 @@
-import Image from 'next/image'
+'use client'
+
 import { courses } from '@/src/app/data'
+import { useState } from 'react'
 
 export default function Home() {
+  const [list, setList] = useState(courses)
+
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
       <div className="z-10 w-full max-w-5xl items-center justify-between lg:flex mb-12">
-        <p className="fixed left-0 top-0 flex w-full justify-center  from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:from-inherit lg:static lg:w-auto  lg:rounded-xl  lg:p-4 ">
+        <p className="fixed left-0 top-0 flex w-full justify-center from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:from-inherit lg:static lg:w-auto  lg:rounded-xl  lg:p-4 ">
           УрФУ.Онлайн
         </p>
       </div>
@@ -24,6 +28,9 @@ export default function Home() {
             name="hs-trailing-button-add-on-with-icon-and-button"
             className="py-3 px-4 ps-11 block w-full border-gray-200 shadow-sm rounded-s-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
             placeholder="Введите название курса"
+            onChange={(e) => {
+              setList(courses.filter((element) => element.title.toLowerCase().includes(e.target.value.toLowerCase())))
+            }}
           />
           <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
             <svg
@@ -51,22 +58,22 @@ export default function Home() {
         </div>
       </div>
       <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-3 lg:text-left">
-        {courses.map((course) => (
+        {list.map((course) => (
           <a
             href={course.link}
             className="m-3 group flex flex-col justify-between bg-white rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <div>
-              <p className="m-0 text-sm opacity-50">{course.platform}</p>
+            <div className="flex flex-col">
+              <p className="m-1 text-sm self-end opacity-50">{course.platform}</p>
 
               <h2 className="mb-3 text-lg font-semibold">{course.title} </h2>
               <div className={'flex flex-wrap items-center'}>
                 {course.tags.map((tag) => (
                   <p
                     key={tag}
-                    className=" m-1 py-1 px-3 text-sm opacity-50 border border-gray-200 border-solid rounded-lg"
+                    className=" m-1 py-1 px-3 text-sm text-blue-800 border border-blue-800 border-solid rounded-lg"
                   >
                     {tag}
                   </p>
