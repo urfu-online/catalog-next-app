@@ -1,6 +1,6 @@
 export interface ICourse {
   title: string
-  description: string
+  description?: string
   competences?: string
   credits: number
   platform: string
