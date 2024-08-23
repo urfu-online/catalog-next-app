@@ -66,7 +66,18 @@ module.exports = {
     '@typescript-eslint/no-empty-function': ['warn', { allow: ['arrowFunctions'] }],
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/no-use-before-define': 'off',
-    'max-len': ['error', { code: 150 }],
+    // 'max-len': [
+    //   'error',
+    //   {
+    //     code: 150,
+    //     // ignoreUrls: true, // Ignore URLs
+    //     // ignoreComments: true, // Ignore comments
+    //     // ignoreStrings: true, // Ignore strings
+    //     // ignoreTemplateLiterals: true, // Ignore template literals
+    //     // ignoreRegExpLiterals: true, // Ignore regular expressions
+    //     // ignorePattern: '^\\s*<.+>$', // Ignore JSX lines
+    //   },
+    // ],
     'react/react-in-jsx-scope': 'error',
     'react-hooks/exhaustive-deps': 'off',
     '@next/next/link-passhref': 'off',
