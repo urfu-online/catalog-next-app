@@ -16,6 +16,7 @@ export default function Home() {
     'Искусственный интеллект': true,
     'Адаптационный модуль': true,
   })
+  console.log(list)
 
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
@@ -52,9 +53,9 @@ export default function Home() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.3-4.3"></path>
@@ -99,13 +100,13 @@ export default function Home() {
               .filter(([_, value]) => value)
               .some(([tagname, _]) => course.tags[tagname]),
           )
-          .map((course) => (
+          .map((course, index) => (
             <a
               href={course.link}
               className="m-3 group flex flex-col justify-between bg-white rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
               target="_blank"
               rel="noopener noreferrer"
-              key={course.title}
+              key={course.title + index}
             >
               <div className="flex flex-col">
                 {course.platform == 'НПОО' ? (
