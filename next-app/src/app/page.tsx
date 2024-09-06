@@ -6,6 +6,16 @@ import Image from 'next/image'
 
 export default function Home() {
   const [list, setList] = useState(courses)
+  const [category, setCategory] = useState({
+    'Ядро бакалавриата': true,
+    'Математика и ИТ': true,
+    'Инженерные науки': true,
+    'Экономика и управление': true,
+    'Гуманитарные науки': true,
+    'Естественные науки': true,
+    'Искусственный интеллект': true,
+    'Адаптационный модуль': true,
+  })
 
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
@@ -58,51 +68,81 @@ export default function Home() {
           </button>
         </div>
       </div>
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-3 lg:text-left">
-        {list.map((course) => (
-          <a
-            href={course.link}
-            className="m-3 group flex flex-col justify-between bg-white rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            target="_blank"
-            rel="noopener noreferrer"
-            key={course.title}
-          >
-            <div className="flex flex-col">
-              {course.platform == 'НПОО' ? (
-                <div className="mb-2 self-end">
-                  <Image src="/openedu.png" className="inline" alt="НПОО" width={24} height={24} />{' '}
-                  <span className="m-1 text-sm self-end opacity-50">{course.platform}</span>
-                </div>
-              ) : (
-                <div className="mb-2 self-end">
-                  <Image className="inline" src="/urfu.png" alt="УрФУ" width={24} height={24} />
-                  <span className="m-1 text-sm self-end opacity-50">{course.platform}</span>
-                </div>
-              )}
-              <hr />
 
-              <h2 className="mb-3 mt-2 text-md font-semibold">{course.title} </h2>
-              <div className={'mb-8 flex flex-wrap items-center'}>
-                {Object.entries(course.tags)
-                  .filter(([_, value]) => value)
-                  .map(([tag, _]) => (
-                    <p
-                      key={tag}
-                      className=" m-1 py-1 px-3 text-xs text-blue-800 border border-blue-800 border-solid rounded-lg"
-                    >
-                      {tag}
-                    </p>
-                  ))}
-              </div>
+      <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Категории</h3>
+      <ul className=" grid text-center  lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left grid-cols-2">
+        {Object.entries(category).map(([name, value]) => (
+          <li key={name} className="w-full dark:border-gray-600">
+            <div className="flex items-center ps-3">
+              <input
+                id={name}
+                type="checkbox"
+                defaultChecked={value}
+                onChange={(e) => {
+                  setCategory({ ...category, [name]: e.target.checked })
+                }}
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+              />
+              <label htmlFor={name} className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                {name}
+              </label>
             </div>
-            <p>
-              Подробнее
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
-            </p>
-          </a>
+          </li>
         ))}
+      </ul>
+
+      <h3 className="my-4 font-semibold text-gray-900 dark:text-white">Онлайн-курсы</h3>
+      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-3 lg:text-left">
+        {list
+          .filter((course) =>
+            Object.entries(category)
+              .filter(([_, value]) => value)
+              .some(([tagname, _]) => course.tags[tagname]),
+          )
+          .map((course) => (
+            <a
+              href={course.link}
+              className="m-3 group flex flex-col justify-between bg-white rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+              target="_blank"
+              rel="noopener noreferrer"
+              key={course.title}
+            >
+              <div className="flex flex-col">
+                {course.platform == 'НПОО' ? (
+                  <div className="mb-2 self-end">
+                    <Image src="/openedu.png" className="inline" alt="НПОО" width={24} height={24} />{' '}
+                    <span className="m-1 text-sm self-end opacity-50">{course.platform}</span>
+                  </div>
+                ) : (
+                  <div className="mb-2 self-end">
+                    <Image className="inline" src="/urfu.png" alt="УрФУ" width={24} height={24} />
+                    <span className="m-1 text-sm self-end opacity-50">{course.platform}</span>
+                  </div>
+                )}
+                <hr />
+
+                <h2 className="mb-3 mt-2 text-md font-semibold">{course.title} </h2>
+                <div className={'mb-8 flex flex-wrap items-center'}>
+                  {Object.entries(course.tags)
+                    .filter(([_, value]) => value)
+                    .map(([tag, _]) => (
+                      <p
+                        key={tag}
+                        className=" m-1 py-1 px-3 text-xs text-blue-800 border border-blue-800 border-solid rounded-lg"
+                      >
+                        {tag}
+                      </p>
+                    ))}
+                </div>
+              </div>
+              <p>
+                Подробнее
+                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                  -&gt;
+                </span>
+              </p>
+            </a>
+          ))}
       </div>
     </main>
   )
