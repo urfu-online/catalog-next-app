@@ -2,6 +2,7 @@
 
 import { courses } from '@/src/app/data'
 import { useState } from 'react'
+import Image from 'next/image'
 
 export default function Home() {
   const [list, setList] = useState(courses)
@@ -10,7 +11,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center p-12">
       <div className="z-10 w-full max-w-5xl items-center justify-between lg:flex mb-12">
         <p className="fixed left-0 top-0 flex w-full justify-center from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:from-inherit lg:static lg:w-auto  lg:rounded-xl  lg:p-4 ">
-          УрФУ.Онлайн
+          <Image src="/urfu_logo.svg" alt="logo" width="180" height="90" />
         </p>
       </div>
 
@@ -64,23 +65,37 @@ export default function Home() {
             className="m-3 group flex flex-col justify-between bg-white rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
             rel="noopener noreferrer"
+            key={course.title}
           >
             <div className="flex flex-col">
-              <p className="m-1 text-sm self-end opacity-50">{course.platform}</p>
+              {course.platform == 'НПОО' ? (
+                <div className="mb-2 self-end">
+                  <Image src="/openedu.png" className="inline" alt="НПОО" width={24} height={24} />{' '}
+                  <span className="m-1 text-sm self-end opacity-50">{course.platform}</span>
+                </div>
+              ) : (
+                <div className="mb-2 self-end">
+                  <Image className="inline" src="/urfu.png" alt="УрФУ" width={24} height={24} />
+                  <span className="m-1 text-sm self-end opacity-50">{course.platform}</span>
+                </div>
+              )}
+              <hr />
 
-              <h2 className="mb-3 text-lg font-semibold">{course.title} </h2>
-              <div className={'flex flex-wrap items-center'}>
-                {course.tags.map((tag) => (
-                  <p
-                    key={tag}
-                    className=" m-1 py-1 px-3 text-sm text-blue-800 border border-blue-800 border-solid rounded-lg"
-                  >
-                    {tag}
-                  </p>
-                ))}
+              <h2 className="mb-3 mt-2 text-md font-semibold">{course.title} </h2>
+              <div className={'mb-8 flex flex-wrap items-center'}>
+                {Object.entries(course.tags)
+                  .filter(([_, value]) => value)
+                  .map(([tag, _]) => (
+                    <p
+                      key={tag}
+                      className=" m-1 py-1 px-3 text-xs text-blue-800 border border-blue-800 border-solid rounded-lg"
+                    >
+                      {tag}
+                    </p>
+                  ))}
               </div>
             </div>
-            <p className="mt-8">
+            <p>
               Подробнее
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
