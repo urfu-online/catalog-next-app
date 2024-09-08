@@ -43,6 +43,11 @@ export default function Home() {
     'Русский язык': 'ru',
   })
 
+  const [platform, setPlatform] = useState({
+    'УрФУ.Онлайн': 'УрФУ.Онлайн',
+    НПОО: 'НПОО',
+  })
+
   return (
     <ThemeProvider theme={theme}>
       <Container
@@ -133,6 +138,16 @@ export default function Home() {
                   <FormLabel component="legend">Язык онлайн-курса</FormLabel>
                   <FormGroup>
                     {Object.entries(language).map(([name, value]) => (
+                      <FormControlLabel key={name} checked={true} disabled={true} control={<Checkbox />} label={name} />
+                    ))}
+                  </FormGroup>
+                </FormControl>
+              </Paper>
+              <Paper sx={{ mt: 2 }}>
+                <FormControl sx={{ my: 2, ml: 2 }} component="fieldset" variant="standard">
+                  <FormLabel component="legend">Платформа</FormLabel>
+                  <FormGroup>
+                    {Object.entries(platform).map(([name, value]) => (
                       <FormControlLabel key={name} checked={true} disabled={true} control={<Checkbox />} label={name} />
                     ))}
                   </FormGroup>
