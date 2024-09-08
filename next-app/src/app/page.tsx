@@ -52,10 +52,10 @@ export default function Home() {
         }}
       >
         <Grid container spacing={2}>
-          <Grid size={3}>
+          <Grid size={{ xs: 12, sm: 5, md: 4, lg: 3 }}>
             <Image src="/urfu_logo.svg" alt="logo" width="275" height="80" className="pt-0.5" />
           </Grid>
-          <Grid size={9}>
+          <Grid size={{ xs: 12, sm: 7, md: 8, lg: 9 }}>
             <div className="w-full">
               <div className="relative flex rounded-lg shadow-sm">
                 <input
@@ -100,7 +100,7 @@ export default function Home() {
       </Container>
       <Container sx={{ pt: 3 }}>
         <Grid container spacing={2}>
-          <Grid size={3}>
+          <Grid size={{ xs: 12, sm: 5, md: 4, lg: 3 }}>
             <Paper sx={{ position: 'sticky', top: 86 }}>
               <FormControl sx={{ my: 2, ml: 2 }} component="fieldset" variant="standard">
                 <FormLabel component="legend">Категории</FormLabel>
@@ -124,7 +124,7 @@ export default function Home() {
               </FormControl>
             </Paper>
           </Grid>
-          <Grid size={9} container spacing={2} height={1}>
+          <Grid size={{ xs: 12, sm: 7, md: 8, lg: 9 }} container spacing={2} height={1}>
             {list
               .filter((course) =>
                 Object.entries(category)
@@ -132,7 +132,7 @@ export default function Home() {
                   .some(([tagname, _]) => course.tags[tagname]),
               )
               .map((course, index) => (
-                <Grid size={4} key={course.title + index}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }} key={course.title + index}>
                   <Card sx={{ height: '100%' }}>
                     <a
                       href={course.link}
