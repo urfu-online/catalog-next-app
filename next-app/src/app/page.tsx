@@ -4,6 +4,7 @@ import { courses } from '@/src/app/data'
 import { useState } from 'react'
 import Image from 'next/image'
 import {
+  Box,
   Card,
   Checkbox,
   Container,
@@ -37,7 +38,10 @@ export default function Home() {
     'Искусственный интеллект': true,
     'Адаптационный модуль': true,
   })
-  console.log(list)
+  const [language, setLanguage] = useState({
+    'Английский язык': 'en',
+    'Русский язык': 'ru',
+  })
 
   return (
     <ThemeProvider theme={theme}>
@@ -101,28 +105,40 @@ export default function Home() {
       <Container sx={{ pt: 3 }}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, sm: 5, md: 4, lg: 3 }}>
-            <Paper sx={{ position: 'sticky', top: 86 }}>
-              <FormControl sx={{ my: 2, ml: 2 }} component="fieldset" variant="standard">
-                <FormLabel component="legend">Категории</FormLabel>
-                <FormGroup>
-                  {Object.entries(category).map(([name, value]) => (
-                    <FormControlLabel
-                      key={name}
-                      control={
-                        <Checkbox
-                          checked={value}
-                          onChange={(e) => {
-                            setCategory({ ...category, [name]: e.target.checked })
-                          }}
-                          inputProps={{ 'aria-label': 'controlled' }}
-                        />
-                      }
-                      label={name}
-                    />
-                  ))}
-                </FormGroup>
-              </FormControl>
-            </Paper>
+            <Box sx={{ position: 'sticky', top: 86 }}>
+              <Paper>
+                <FormControl sx={{ my: 2, ml: 2 }} component="fieldset" variant="standard">
+                  <FormLabel component="legend">Категории</FormLabel>
+                  <FormGroup>
+                    {Object.entries(category).map(([name, value]) => (
+                      <FormControlLabel
+                        key={name}
+                        control={
+                          <Checkbox
+                            checked={value}
+                            onChange={(e) => {
+                              setCategory({ ...category, [name]: e.target.checked })
+                            }}
+                            inputProps={{ 'aria-label': 'controlled' }}
+                          />
+                        }
+                        label={name}
+                      />
+                    ))}
+                  </FormGroup>
+                </FormControl>
+              </Paper>
+              <Paper sx={{ mt: 2 }}>
+                <FormControl sx={{ my: 2, ml: 2 }} component="fieldset" variant="standard">
+                  <FormLabel component="legend">Язык онлайн-курса</FormLabel>
+                  <FormGroup>
+                    {Object.entries(language).map(([name, value]) => (
+                      <FormControlLabel key={name} checked={true} disabled={true} control={<Checkbox />} label={name} />
+                    ))}
+                  </FormGroup>
+                </FormControl>
+              </Paper>
+            </Box>
           </Grid>
           <Grid size={{ xs: 12, sm: 7, md: 8, lg: 9 }} container spacing={2} height={1}>
             {list
