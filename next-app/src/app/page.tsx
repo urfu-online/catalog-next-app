@@ -167,7 +167,7 @@ export default function Home() {
                   <Card sx={{ height: '100%' }}>
                     <a
                       href={course.link}
-                      className="group flex flex-col justify-between bg-white  px-5 py-4 transition-colors hover:border-gray-300 hover:bg-indigo-50 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 h-full"
+                      className="group flex flex-col justify-between bg-white  px-5 py-4 transition-colors hover:border-gray-300 hover:bg-indigo-50 h-full"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
