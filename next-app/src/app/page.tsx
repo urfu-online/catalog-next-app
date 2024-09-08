@@ -3,8 +3,27 @@
 import { courses } from '@/src/app/data'
 import { useState } from 'react'
 import Image from 'next/image'
-import { Card, Checkbox, Container, FormControl, FormControlLabel, FormGroup, FormLabel, Paper } from '@mui/material'
+import {
+  Card,
+  Checkbox,
+  Container,
+  createTheme,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  Paper,
+  ThemeProvider,
+} from '@mui/material'
 import Grid from '@mui/material/Grid2'
+
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Montserrat',
+  },
+})
 
 export default function Home() {
   const [list, setList] = useState(courses)
@@ -21,7 +40,7 @@ export default function Home() {
   console.log(list)
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Container
         sx={{
           py: 2,
@@ -34,7 +53,7 @@ export default function Home() {
       >
         <Grid container spacing={2}>
           <Grid size={3}>
-            <Image src="/urfu_logo.svg" alt="logo" width="275" height="80" />
+            <Image src="/urfu_logo.svg" alt="logo" width="275" height="80" className="pt-0.5" />
           </Grid>
           <Grid size={9}>
             <div className="w-full">
@@ -83,7 +102,7 @@ export default function Home() {
         <Grid container spacing={2}>
           <Grid size={3}>
             <Paper sx={{ position: 'sticky', top: 86 }}>
-              <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormControl sx={{ my: 2, ml: 2 }} component="fieldset" variant="standard">
                 <FormLabel component="legend">Категории</FormLabel>
                 <FormGroup>
                   {Object.entries(category).map(([name, value]) => (
@@ -152,7 +171,7 @@ export default function Home() {
                       <p>
                         Подробнее{' '}
                         <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                          -&gt;
+                          <ArrowForwardIcon fontSize="small" />
                         </span>
                       </p>
                     </a>
@@ -162,6 +181,6 @@ export default function Home() {
           </Grid>
         </Grid>
       </Container>
-    </>
+    </ThemeProvider>
   )
 }
