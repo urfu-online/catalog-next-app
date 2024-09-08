@@ -25,7 +25,7 @@ export default function Home() {
       <Container
         sx={{
           py: 2,
-          backgroundColor: 'rgba(214, 219, 220, .6)',
+          backgroundColor: 'rgba(214, 219, 220, .3)',
           position: 'sticky',
           top: 0,
           backdropFilter: 'blur(5px)',
@@ -34,16 +34,16 @@ export default function Home() {
       >
         <Grid container spacing={2}>
           <Grid size={3}>
-            <Image src="/urfu_logo.svg" alt="logo" width="160" height="80" />
+            <Image src="/urfu_logo.svg" alt="logo" width="275" height="80" />
           </Grid>
           <Grid size={9}>
-            <div className="my-1 max-w-5xl w-full">
+            <div className="w-full">
               <div className="relative flex rounded-lg shadow-sm">
                 <input
                   type="text"
                   id="hs-trailing-button-add-on-with-icon-and-button"
                   name="hs-trailing-button-add-on-with-icon-and-button"
-                  className="py-3 px-4 ps-11 block w-full border-gray-200 shadow-sm rounded-s-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                  className="py-3 px-4 ps-10 block w-full border-gray-200 shadow-sm rounded-s-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                   placeholder="Введите название курса"
                   onChange={(e) => {
                     setList(
