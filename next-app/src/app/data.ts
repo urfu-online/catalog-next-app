@@ -1770,4 +1770,25 @@ export const courses: ICourse[] = [
     },
     language: 'ru',
   },
+  {
+    title: 'Программирование на Python',
+    description: '',
+    competences: '',
+    credits: 3,
+    platform: 'УрФУ.Онлайн',
+    link: 'https://courses.openedu.urfu.ru/course-v1:UrFU+PYTHON+2024_fall',
+
+    interactive: false,
+    tags: {
+      'Ядро бакалавриата': true,
+      'Математика и ИТ': true,
+      'Инженерные науки': false,
+      'Экономика и управление': false,
+      'Гуманитарные науки': false,
+      'Естественные науки': false,
+      'Искусственный интеллект': false,
+      'Адаптационный модуль': false,
+    },
+    language: 'ru',
+  },
 ]
