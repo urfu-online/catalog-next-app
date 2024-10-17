@@ -1797,7 +1797,7 @@ export const courses: ICourse[] = [
     competences: '',
     credits: 3,
     platform: 'УрФУ.Онлайн',
-    link: 'https://courses.openedu.urfu.ru/course-v1:UrFU+CPESOC.c.Hu-0128+2024_fall',
+    link: 'https://courses.openedu.urfu.ru/course-v1:UrFU+CPESOC.c.Hu-0128+demo',
 
     interactive: true,
     tags: {
@@ -1818,7 +1818,7 @@ export const courses: ICourse[] = [
     competences: '',
     credits: 3,
     platform: 'УрФУ.Онлайн',
-    link: 'https://courses.openedu.urfu.ru/course-v1:UrFU+PUBLSPEAK+2024_fall',
+    link: 'https://courses.openedu.urfu.ru/course-v1:UrFU+PUBLSPEAK+demo',
 
     interactive: true,
     tags: {
