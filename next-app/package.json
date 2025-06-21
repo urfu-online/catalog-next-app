@@ -9,17 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^6.0.2",
-    "@mui/material": "^6.0.2",
     "axios": "^1.7.4",
     "clsx": "^2.1.1",
     "next": "14.2.5",
     "punycode": "^2.3.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "urfu-ui-kit-vanilla": "^2.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.4.1",

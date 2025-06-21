@@ -1,33 +1,12 @@
 'use client'
 
 import { courses } from '@/src/app/data'
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
-import {
-  Box,
-  Card,
-  Checkbox,
-  Container,
-  createTheme,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Paper,
-  ThemeProvider,
-} from '@mui/material'
-import Grid from '@mui/material/Grid2'
-
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-
-const theme = createTheme({
-  typography: {
-    fontFamily: 'Montserrat',
-  },
-})
 
 export default function Home() {
   const [list, setList] = useState(courses)
+  const [searchTerm, setSearchTerm] = useState('')
   const [category, setCategory] = useState({
     'Ядро бакалавриата': true,
     'Математика и ИТ': true,
@@ -39,179 +18,379 @@ export default function Home() {
     'Адаптационный модуль': true,
   })
   const [language, setLanguage] = useState({
-    'Английский язык': 'en',
-    'Русский язык': 'ru',
+    'ru': true,
+    'en': true,
+  })
+  const [platform, setPlatform] = useState({
+    'УрФУ.Онлайн': true,
+    'НПОО': true,
   })
 
-  const [platform, setPlatform] = useState({
-    'УрФУ.Онлайн': 'УрФУ.Онлайн',
-    НПОО: 'НПОО',
-  })
+  // Единая функция фильтрации
+  const applyFilters = useCallback(() => {
+    let filteredCourses = courses
+
+    // Фильтр по поисковому запросу
+    if (searchTerm) {
+      filteredCourses = filteredCourses.filter(course =>
+        course.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    }
+
+    // Фильтр по категориям
+    const activeCategories = Object.entries(category)
+      .filter(([_, value]) => value)
+      .map(([key, _]) => key)
+    
+    // Если НИ ОДНА категория не выбрана, показываем пустой результат
+    if (activeCategories.length === 0) {
+      filteredCourses = []
+    } else {
+      filteredCourses = filteredCourses.filter(course =>
+        activeCategories.some(categoryName => course.tags[categoryName])
+      )
+    }
+
+    // Фильтр по языку
+    const activeLanguages = Object.entries(language)
+      .filter(([_, value]) => value)
+      .map(([key, _]) => key)
+    
+    // Языки всегда будут выбраны (минимум один), поэтому просто фильтруем
+    filteredCourses = filteredCourses.filter(course =>
+      activeLanguages.includes(course.language)
+    )
+
+    // Фильтр по платформе
+    const activePlatforms = Object.entries(platform)
+      .filter(([_, value]) => value)
+      .map(([key, _]) => key)
+    
+    // Платформы всегда будут выбраны (минимум одна), поэтому просто фильтруем
+    filteredCourses = filteredCourses.filter(course =>
+      activePlatforms.includes(course.platform)
+    )
+
+    setList(filteredCourses)
+  }, [searchTerm, category, language, platform])
+
+  // Применяем фильтры при изменении любого состояния
+  useEffect(() => {
+    applyFilters()
+  }, [applyFilters])
+
+  const handleSearch = (value: string) => {
+    setSearchTerm(value)
+  }
+
+  const clearSearch = () => {
+    setSearchTerm('')
+  }
+
+  const resetAllFilters = () => {
+    setSearchTerm('')
+    setCategory({
+      'Ядро бакалавриата': true,
+      'Математика и ИТ': true,
+      'Инженерные науки': true,
+      'Экономика и управление': true,
+      'Гуманитарные науки': true,
+      'Естественные науки': true,
+      'Искусственный интеллект': true,
+      'Адаптационный модуль': true,
+    })
+    setLanguage({
+      'ru': true,
+      'en': true,
+    })
+    setPlatform({
+      'УрФУ.Онлайн': true,
+      'НПОО': true,
+    })
+  }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container
-        sx={{
-          py: 2,
-          backgroundColor: 'rgba(214, 219, 220, .3)',
-          position: 'sticky',
-          top: 0,
-          backdropFilter: 'blur(5px)',
-          zIndex: 999,
-        }}
-      >
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, sm: 5, md: 4, lg: 3 }}>
-            <Image src="/urfu_logo.svg" alt="logo" width="275" height="80" className="pt-0.5" />
-          </Grid>
-          <Grid size={{ xs: 12, sm: 7, md: 8, lg: 9 }}>
-            <div className="w-full">
-              <div className="relative flex rounded-lg shadow-sm">
-                <input
-                  type="text"
-                  id="hs-trailing-button-add-on-with-icon-and-button"
-                  name="hs-trailing-button-add-on-with-icon-and-button"
-                  className="py-3 px-4 ps-10 block w-full border-gray-200 shadow-sm rounded-s-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                  placeholder="Введите название курса"
-                  onChange={(e) => {
-                    setList(
-                      courses.filter((element) => element.title.toLowerCase().includes(e.target.value.toLowerCase())),
-                    )
-                  }}
-                />
-                <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
-                  <svg
-                    className="shrink-0 size-4 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
+    <div className="u-page">
+      {/* Header */}
+      <header className="u-header u-bg-light u-sticky-top">
+        <div className="u-container">
+          <div className="u-row u-py-3">
+            <div className="u-col-12 u-col-lg-3 u-mb-3 u-mb-lg-0">
+              <Image src="/urfu_logo.svg" alt="УрФУ" width="275" height="80" className="u-img-responsive" />
+            </div>
+            <div className="u-col-12 u-col-lg-9">
+              <div className="search-container">
+                <div className="search-input-wrapper">
+                  <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.3-4.3"></path>
+                    <path d="m21 21-4.35-4.35"></path>
                   </svg>
+                  <input
+                    type="text"
+                    className="search-input"
+                    placeholder="Найти курс по названию..."
+                    value={searchTerm}
+                    onChange={(e) => handleSearch(e.target.value)}
+                  />
+                  {searchTerm && (
+                    <button className="search-clear" onClick={clearSearch}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  )}
                 </div>
-                <button
-                  type="button"
-                  className="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-gray-600 text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 disabled:opacity-50 disabled:pointer-events-none"
-                >
-                  Поиск
-                </button>
               </div>
             </div>
-          </Grid>
-        </Grid>
-      </Container>
-      <Container sx={{ pt: 3 }}>
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, sm: 5, md: 4, lg: 3 }}>
-            <Box sx={{ position: 'sticky', top: 86 }}>
-              <Paper>
-                <FormControl sx={{ my: 2, ml: 2 }} component="fieldset" variant="standard">
-                  <FormLabel component="legend">Категории</FormLabel>
-                  <FormGroup>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="u-container u-py-4">
+        <div className="u-row">
+          {/* Sidebar */}
+          <aside className="u-col-12 u-col-lg-3">
+            <div className="filters-sidebar">
+              <div className="filter-section">
+                <div className="filter-header">
+                  <h3 className="filter-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                    Категории
+                  </h3>
+                </div>
+                <div className="filter-content">
+                  <form className="u-form">
                     {Object.entries(category).map(([name, value]) => (
-                      <FormControlLabel
-                        key={name}
-                        control={
-                          <Checkbox
+                      <div key={name} className="u-form-item">
+                        <label className="u-checkbox">
+                          <input
+                            type="checkbox"
                             checked={value}
                             onChange={(e) => {
                               setCategory({ ...category, [name]: e.target.checked })
                             }}
-                            inputProps={{ 'aria-label': 'controlled' }}
                           />
-                        }
-                        label={name}
-                      />
+                          <span className="u-checkbox-mark"></span>
+                          <span className="u-checkbox-text">{name}</span>
+                        </label>
+                      </div>
                     ))}
-                  </FormGroup>
-                </FormControl>
-              </Paper>
-              <Paper sx={{ mt: 2 }}>
-                <FormControl sx={{ my: 2, ml: 2 }} component="fieldset" variant="standard">
-                  <FormLabel component="legend">Язык онлайн-курса</FormLabel>
-                  <FormGroup>
-                    {Object.entries(language).map(([name, value]) => (
-                      <FormControlLabel key={name} checked={true} disabled={true} control={<Checkbox />} label={name} />
-                    ))}
-                  </FormGroup>
-                </FormControl>
-              </Paper>
-              <Paper sx={{ mt: 2 }}>
-                <FormControl sx={{ my: 2, ml: 2 }} component="fieldset" variant="standard">
-                  <FormLabel component="legend">Платформа</FormLabel>
-                  <FormGroup>
-                    {Object.entries(platform).map(([name, value]) => (
-                      <FormControlLabel key={name} checked={true} disabled={true} control={<Checkbox />} label={name} />
-                    ))}
-                  </FormGroup>
-                </FormControl>
-              </Paper>
-            </Box>
-          </Grid>
-          <Grid size={{ xs: 12, sm: 7, md: 8, lg: 9 }} container spacing={2} height={1}>
-            {list
-              .filter((course) =>
-                Object.entries(category)
-                  .filter(([_, value]) => value)
-                  .some(([tagname, _]) => course.tags[tagname]),
-              )
-              .map((course, index) => (
-                <Grid size={{ xs: 12, md: 6, lg: 4 }} key={course.title + index}>
-                  <Card sx={{ height: '100%' }}>
+                  </form>
+                </div>
+              </div>
+
+              <div className="filter-section">
+                <div className="filter-header">
+                  <h3 className="filter-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M5 12V7a7 7 0 1 1 14 0v5"></path>
+                      <path d="M5 12H3a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2"></path>
+                      <path d="M19 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"></path>
+                      <path d="M9 12v9"></path>
+                      <path d="M15 12v9"></path>
+                    </svg>
+                    Язык курса
+                  </h3>
+                </div>
+                <div className="filter-content">
+                  <form className="u-form">
+                    <div className="u-form-item">
+                      <label className="u-checkbox">
+                        <input 
+                          type="checkbox" 
+                          checked={language.ru}
+                          onChange={(e) => {
+                            // Предотвращаем снятие последнего языка
+                            if (!e.target.checked && !language.en) {
+                              return
+                            }
+                            setLanguage({ ...language, ru: e.target.checked })
+                          }}
+                        />
+                        <span className="u-checkbox-mark"></span>
+                        <span className="u-checkbox-text">Русский язык</span>
+                      </label>
+                    </div>
+                    <div className="u-form-item">
+                      <label className="u-checkbox">
+                        <input 
+                          type="checkbox" 
+                          checked={language.en}
+                          onChange={(e) => {
+                            // Предотвращаем снятие последнего языка
+                            if (!e.target.checked && !language.ru) {
+                              return
+                            }
+                            setLanguage({ ...language, en: e.target.checked })
+                          }}
+                        />
+                        <span className="u-checkbox-mark"></span>
+                        <span className="u-checkbox-text">Английский язык</span>
+                      </label>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div className="filter-section">
+                <div className="filter-header">
+                  <h3 className="filter-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="2" y="6" width="20" height="8" rx="1"></rect>
+                      <path d="M17 14v7"></path>
+                      <path d="M7 14v7"></path>
+                      <path d="M17 3v3"></path>
+                      <path d="M7 3v3"></path>
+                      <path d="M10 14 2.3 6.3"></path>
+                      <path d="m14 6 7.7 7.7"></path>
+                      <path d="m8 6 8 8"></path>
+                    </svg>
+                    Платформа
+                  </h3>
+                </div>
+                <div className="filter-content">
+                  <form className="u-form">
+                    <div className="u-form-item">
+                      <label className="u-checkbox">
+                        <input 
+                          type="checkbox" 
+                          checked={platform['УрФУ.Онлайн']}
+                          onChange={(e) => {
+                            // Предотвращаем снятие последней платформы
+                            if (!e.target.checked && !platform['НПОО']) {
+                              return
+                            }
+                            setPlatform({ ...platform, 'УрФУ.Онлайн': e.target.checked })
+                          }}
+                        />
+                        <span className="u-checkbox-mark"></span>
+                        <span className="u-checkbox-text">УрФУ.Онлайн</span>
+                      </label>
+                    </div>
+                    <div className="u-form-item">
+                      <label className="u-checkbox">
+                        <input 
+                          type="checkbox" 
+                          checked={platform['НПОО']}
+                          onChange={(e) => {
+                            // Предотвращаем снятие последней платформы
+                            if (!e.target.checked && !platform['УрФУ.Онлайн']) {
+                              return
+                            }
+                            setPlatform({ ...platform, 'НПОО': e.target.checked })
+                          }}
+                        />
+                        <span className="u-checkbox-mark"></span>
+                        <span className="u-checkbox-text">НПОО</span>
+                      </label>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div className="filter-actions">
+                <button 
+                  className="u-btn u-btn-secondary u-btn-block"
+                  onClick={resetAllFilters}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                    <path d="M3 3v5h5"></path>
+                  </svg>
+                  Сбросить фильтры
+                </button>
+              </div>
+            </div>
+          </aside>
+
+          {/* Course Cards */}
+          <section className="u-col-12 u-col-lg-9">
+            {list.length === 0 ? (
+              <div className="no-results">
+                <div className="no-results-icon">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                </div>
+                <h3>Курсы не найдены</h3>
+                <p>
+                  {searchTerm && 'Поисковый запрос не дал результатов. '}
+                  {Object.values(category).every(v => !v) && 'Выберите хотя бы одну категорию. '}
+                  {!searchTerm && Object.values(category).some(v => v) && 'Попробуйте изменить настройки фильтров.'}
+                </p>
+                <button className="u-btn u-btn-primary" onClick={resetAllFilters}>
+                  Сбросить все фильтры
+                </button>
+              </div>
+            ) : (
+              <div className="u-row">
+                {list.map((course, index) => (
+                  <div key={course.title + index} className="u-col-12 u-col-md-6 u-col-xl-4 u-mb-4">
                     <a
                       href={course.link}
-                      className="group flex flex-col justify-between bg-white  px-5 py-4 transition-colors hover:border-gray-300 hover:bg-indigo-50 h-full"
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="course-card-link"
                     >
-                      <div className="flex flex-col">
-                        {course.platform == 'НПОО' ? (
-                          <div className="mb-2 self-end">
-                            <Image src="/openedu.png" className="inline" alt="НПОО" width={24} height={24} />{' '}
-                            <span className="m-1 text-sm self-end opacity-50">{course.platform}</span>
+                      <div className="course-card">
+                        <div className="course-card-header">
+                          <div className="course-platform">
+                            {course.platform === 'НПОО' ? (
+                              <>
+                                <Image src="/openedu.png" alt="НПОО" width={20} height={20} />
+                                <span>{course.platform}</span>
+                              </>
+                            ) : (
+                              <>
+                                <Image src="/urfu.png" alt="УрФУ" width={20} height={20} />
+                                <span>{course.platform}</span>
+                              </>
+                            )}
                           </div>
-                        ) : (
-                          <div className="mb-2 self-end">
-                            <Image className="inline" src="/urfu.png" alt="УрФУ" width={24} height={24} />
-                            <span className="m-1 text-sm self-end opacity-50">{course.platform}</span>
+                        </div>
+                        
+                        <div className="course-card-body">
+                          <h3 className="course-title">{course.title}</h3>
+                          
+                          <div className="course-tags">
+                            {Object.entries(course.tags)
+                              .filter(([_, value]) => value)
+                              .slice(0, 3) // Показываем только первые 3 тега
+                              .map(([tag, _]) => (
+                                <span key={tag} className="u-status u-status-primary">
+                                  {tag}
+                                </span>
+                              ))}
+                            {Object.entries(course.tags).filter(([_, value]) => value).length > 3 && (
+                              <span className="u-status u-status-secondary">
+                                +{Object.entries(course.tags).filter(([_, value]) => value).length - 3}
+                              </span>
+                            )}
                           </div>
-                        )}
-                        <hr />
+                        </div>
 
-                        <h2 className="mb-3 mt-2 text-md font-semibold">{course.title} </h2>
-                        <div className={'mb-8 flex flex-wrap items-center'}>
-                          {Object.entries(course.tags)
-                            .filter(([_, value]) => value)
-                            .map(([tag, _]) => (
-                              <p
-                                key={tag}
-                                className=" m-1 py-1 px-3 text-xs text-blue-800 border border-blue-800 border-solid rounded-lg"
-                              >
-                                {tag}
-                              </p>
-                            ))}
+                        <div className="course-card-footer">
+                          <span className="course-link-text">
+                            Перейти к курсу
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                          </span>
                         </div>
                       </div>
-                      <p>
-                        Подробнее{' '}
-                        <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                          <ArrowForwardIcon fontSize="small" />
-                        </span>
-                      </p>
                     </a>
-                  </Card>
-                </Grid>
-              ))}
-          </Grid>
-        </Grid>
-      </Container>
-    </ThemeProvider>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
+      </main>
+    </div>
   )
 }

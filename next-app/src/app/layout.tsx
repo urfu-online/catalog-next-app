@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import './globals.css'
+import 'urfu-ui-kit-vanilla/src/main.css'
 
 const inter = Montserrat({ subsets: ['latin'] })
 

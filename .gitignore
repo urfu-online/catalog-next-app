@@ -2,6 +2,8 @@
 
 # dependencies
 /next-app/node_modules
+/next-app/.next
+/next-app/package-lock.json
 
 /.pnp
 .pnp.js
