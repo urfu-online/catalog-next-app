@@ -1,0 +1,204 @@
+{
+  "courses": [
+    {
+      "title": "Soft Skills: навыки 21 века",
+      "description": "Курс позволяет получить представление об основных метакомпетенциях, которые необходимы современному человеку для личностной и профессиональной реализации.\n\nПосле этого курса вы сможете:\n\n- выявлять уникальные способности других людей, раскрывать их потенциал;\n- воспринимать, регулировать и конструктивно реагировать на чужие идеи;\n- находить решение проблем, управлять конфликтами, оказывать влияние и укреплять доверие с другими людьми.",
+      "competences": "УК-1. Способен осуществлять поиск, критический анализ и синтез информации, применять системный подход для решения поставленных задач \nУК-2. Способен определять круг задач в рамках поставленной цели и выбирать оптимальные способы их решения, исходя из действующих правовых норм, имеющихся ресурсов и ограничений \nУК-3. Способен осуществлять социальное взаимодействие и реализовывать свою роль в команде\nУК-4. Способен осуществлять деловую коммуникацию в устной и письменной формах на государственном языке Российской Федерации и иностранном(ых) языке(ах)\nУК-6. Способен управлять своим временем, выстраивать и реализовывать траекторию саморазвития на основе принципов образования в течение всей жизни\nУК-10. - Способен использовать базовые дефектологические знания в социальной и профессиональной сферах",
+      "credits": 3,
+      "platform": "НПОО",
+      "link": "https://openedu.ru/course/urfu/SoftSkills/",
+      "interactive": true,
+      "tags": {
+        "Ядро бакалавриата": false,
+        "Математика и ИТ": false,
+        "Инженерные науки": false,
+        "Экономика и управление": false,
+        "Гуманитарные науки": true,
+        "Естественные науки": false,
+        "Искусственный интеллект": false,
+        "Адаптационный модуль": false
+      },
+      "language": "ru"
+    },
+    {
+      "title": "Cybersecurity in the power industry",
+      "description": "The purpose of the course is to give students a holistic view of the structure and principles of operation of the cybersecurity tools at the fuel and energy sector facilities in the context of the digital transformation of the industry.\n\nThe course presents the principles of building and using digital substations, information and analytical systems, the vulnerabilities and threats in the field of information security in the power industry, the principles of building models and databases, database management systems and providing access to them.\n\nThe course also discusses the principles of using risk management, legislative, organizational and technical means of ensuring cybersecurity (cryptography, software and hardware) and the features of using machine learning in the power industry from the point of view of cybersecurity.",
+      "competences": "Upon completion of the course, you will be able to:\nApply principles of ensuring cybersecurity at the Fuel and Energy Sector facilities.\nAnalyze the basic stages of the information processes in the power systems in order to reveal vulnerabilities in information protection.\nIdentify, prevent threats and ensure the cybersecurity of the information systems at the industrial enterprises using the optimal protection methods.\nUse the main cryptographic, software and software-hardware means of ensuring cybersecurity.\nDesign information systems for collecting, storing and intelligent data processing using the tools for detecting data anomalies and distortions.",
+      "credits": 3,
+      "platform": "УрФУ.Онлайн",
+      "link": "https://courses.openedu.urfu.ru/course-v1:UrFU+CYBERSECURITYEn+original",
+      "interactive": false,
+      "tags": {
+        "Ядро бакалавриата": false,
+        "Математика и ИТ": false,
+        "Инженерные науки": true,
+        "Экономика и управление": false,
+        "Гуманитарные науки": false,
+        "Искусственный интеллект": false,
+        "Естественные науки": false,
+        "Адаптационный модуль": false
+      },
+      "language": "en"
+    },
+    {
+      "title": "History of the power industry",
+      "description": "The course is aimed at developing competencies related in the field of historical development of the energy sector of the economy, the ability to analyze its impact on related industries and studying the relationship between the history of energy and engineering disciplines, such as Design of power supply systems, Optimization problems in the electric power industry, Optimization of modes operation of power systems, Diagnostics of electrical equipment, Electric energy generation technologies.\n\nThe purpose of studying the course is to from a comprehensive understanding of the key achievements in the development of energy in the period from the 18th century to the present day and their impact on society and industry.\n\nThe course History of the power industry studies the historical process of the emergence of the modern energy system, identifies the key technological and economic stages of this process, and examines the impact of the development of the energy industry on related industries. The course develops an understanding of the types of energy industry and electric power transmission systems, the development of dispatch and control systems, and the features of the economics of the electric power industry in national and global contexts. Particular attention is paid to the problems of the impact of the electric power industry on the environment.",
+      "competences": "Based on the results of mastering the course, the student will be able to:\nanalyze the processes of formation and formation of modern energy;\nclassify historically established areas of the power industry, evaluate the contribution of the most important figures and organizations to the development of these areas;\nevaluate the main historical processes of formation of power systems in different countries.",
+      "credits": 3,
+      "platform": "УрФУ.Онлайн",
+      "link": "https://courses.openedu.urfu.ru/course-v1:UrFU+HISTPOWEn+original",
+      "interactive": false,
+      "tags": {
+        "Ядро бакалавриата": false,
+        "Математика и ИТ": false,
+        "Инженерные науки": true,
+        "Экономика и управление": false,
+        "Гуманитарные науки": false,
+        "Искусственный интеллект": false,
+        "Естественные науки": false,
+        "Адаптационный модуль": false
+      },
+      "language": "en"
+    },
+    {
+      "title": "Machine learning in power industry",
+      "description": "",
+      "competences": "",
+      "credits": 3,
+      "platform": "УрФУ.Онлайн",
+      "link": "https://courses.openedu.urfu.ru/course-v1:UrFUx+MLENERGYEN+original",
+      "interactive": false,
+      "tags": {
+        "Ядро бакалавриата": false,
+        "Математика и ИТ": true,
+        "Инженерные науки": true,
+        "Экономика и управление": false,
+        "Гуманитарные науки": false,
+        "Искусственный интеллект": true,
+        "Естественные науки": false,
+        "Адаптационный модуль": false
+      },
+      "language": "en"
+    },
+    {
+      "title": "Operation models of distributed generation",
+      "description": "The course is aimed at developing competencies related to the analysis of the features of functioning and environmental aspects of the use of heat engines and gas turbines that are part of distributed generation facilities.\n\nThe purpose of studying the course is to form an idea about distributed generation objects in terms of choosing the characteristics of their main equipment.\n\nThe course Operation Modes of the Distributed Generation studies the technical, economic and environmental performance of equipment of distributed generation facilities for various purposes, analyzes various types of heat engines and gas turbines, their design features and operating modes, taking into account their operating conditions.",
+      "competences": "Based on the results of mastering the course, the student will be able to:\n\nexplain the contribution of distributed generation to the Russian and global power industry\nknow the general approaches to the development and application of digital twins of heat engines\nanalyze the performance indicators of internal combustion engines and gas turbines\ndraw conclusions about the main structural systems and elements of internal combustion engines and gas turbine plants\ntake into account environmental aspects in the development and operation of power plants based on reciprocating engines and gas turbines.",
+      "credits": 3,
+      "platform": "УрФУ.Онлайн",
+      "link": "https://courses.openedu.urfu.ru/course-v1:UrFU+DISTRGENOPERMOD_EN+original",
+      "interactive": false,
+      "tags": {
+        "Ядро бакалавриата": false,
+        "Математика и ИТ": false,
+        "Инженерные науки": true,
+        "Экономика и управление": false,
+        "Гуманитарные науки": false,
+        "Искусственный интеллект": false,
+        "Естественные науки": false,
+        "Адаптационный модуль": false
+      },
+      "language": "en"
+    },
+    {
+      "title": "System analysis",
+      "description": "The purpose of the course is to develop competencies for performing a critical analysis of problem situations based on a systematic approach, forming an action strategy, selecting, applying and creating components of artificial intelligence systems, applying and interpreting explicable artificial intelligence methods to create interpretable and secure intelligent systems.\n\nTrends in the digitalization of the economy form a new generation ecosystem based on the introduction of end-to-end technologies, including artificial intelligence technologies. Their implementation carries, in addition to opportunities, new risks, so specialists, who create or use information systems, data collection and processing systems, intelligent systems must have the appropriate competencies.\n\nThe course is based on the study of the methodology of system analysis as a tool for making decisions and designing intelligent information systems with examples from the power industry. The course studies the theory of systems, their classification and properties, the ontological approach to the formalization of knowledge, the principles of system analysis and modeling of complex systems, the basic mathematical methods of system analysis, the methodology and tools for analyzing and designing information processes and systems, including systems based on artificial intelligence technologies. intelligence to solve industry problems. The concepts of secure machine learning, explainable artificial intelligence and the principles of their application are considered. Theoretical information is supported by practical examples both in lectures and in calculated and interactive training tasks.",
+      "competences": "Carry out a critical analysis of problem situations based on a systematic approach, develop an action strategy, including the digital environment.\nAnalyze, interpret and generalize the results of research in the professional field.\nApply systems analysis methods and systems modeling software to solve research problems.\nSelect, develop and conduct experimental testing of the performance of software components of artificial intelligence systems to ensure the required criteria for efficiency and quality of operation.\nCreate and apply the methods of explainable artificial intelligence to create interpretable intelligent systems.\nPerform problem analysis.",
+      "credits": 3,
+      "platform": "УрФУ.Онлайн",
+      "link": "https://courses.openedu.urfu.ru/course-v1:UrFU+SYSANALYSIS_EN+original",
+      "interactive": false,
+      "tags": {
+        "Ядро бакалавриата": false,
+        "Математика и ИТ": false,
+        "Инженерные науки": true,
+        "Экономика и управление": false,
+        "Гуманитарные науки": false,
+        "Искусственный интеллект": false,
+        "Естественные науки": false,
+        "Адаптационный модуль": false
+      },
+      "language": "en"
+    },
+    {
+      "title": "Аккумуляторы, топливные элементы и их роль в современном обществе",
+      "description": "В курсе рассказывается об аккумуляторах, топливных элементах и их роли в современном обществе. Для наглядного представления роли химических источников тока основной фокус делается на электромобилях. В начале курса проводится краткий экскурс в историю для изучения причин экономической неудачи технологий, которые всеми рассматривались как наиболее перспективными. Затем рассматриваются основные причины их возрождения (экологические, экономические и политические) и то какое влияние это окажет на развитие технологий аккумуляторов и топливных элементов. Затем проведется сравнение основных технологий и материалов химических источниках тока.",
+      "competences": "Результатом обучения в рамках дисциплины является формирование у студента следующих компетенций:\n\nнавык поиска, оценивания и использования информации по вопросам изучаемых дисциплин (ОК-1);\nспособности соотносить вопросы профессиональной деятельности (в соответствии с профилем подготовки), проблематику исследования с философскими и социогуманитарными знаниями; рассматривает вопросы, связанные с профессиональной деятельностью, с позиции научного мировоззрения (ОК-1);\nспособности к самоорганизации и самообразованию (ОК-7);\nспособность сознавать социальную значимость химических источников тока, обладать мотивацией к осуществлению профессиональной деятельности (ОПК-1);\nспособностью выявлять естественнонаучную сущность проблем, возникающих в ходе профессиональной деятельности, привлекать для их решения соответствующий базовый научный аппарат (ОПК-2);\nспособность осуществлять поиск, хранение, обработку и анализ информации из различных источников и баз данных, представлять ее в требуемом формате с использованием информационных, компьютерных и сетевых технологий (ОПК-6).",
+      "credits": 3,
+      "platform": "НПОО",
+      "link": "https://openedu.ru/course/urfu/CHEMSO/",
+      "interactive": false,
+      "tags": {
+        "Ядро бакалавриата": false,
+        "Математика и ИТ": false,
+        "Инженерные науки": true,
+        "Экономика и управление": false,
+        "Гуманитарные науки": false,
+        "Искусственный интеллект": false,
+        "Естественные науки": false,
+        "Адаптационный модуль": false
+      },
+      "language": "ru"
+    },
+    {
+      "title": "Аналитическая химия. Часть 2. Инструментальные методы анализа",
+      "description": "В решении крупнейших общечеловеческих проблем ведущее место принадлежит аналитической химии. Особую актуальность аналитическая химия приобрела в настоящее время. Знание основ аналитической химии одинаково необходимо современному студенты, инженеру, преподавателю, предпринимателю.\nОнлайн-курс позволит получить актуальные знания и сформировать у слушателей новые и/или усовершенствовать имеющиеся навыки и компетенции, требуемые для успешной работы в химической, биотехнологической, фармацевтической, медицинской, пищевой, металлургической, микробиологической, нефтехимической, топливной промышленности, реализации профессиональных задач в научно-исследовательской деятельности.\nДанный курс представляет собой 2-ю часть общего курса «Аналитическая химия».",
+      "competences": "способность проводить анализ сырья, материалов и готовой продукции, осуществлять оценку результатов анализа;\nспособность планировать и проводить физические и химические эксперименты, проводить обработку их результатов и оценивать погрешности, выдвигать гипотезы и устанавливать границы их применения;\nготовность проводить стандартные и сертификационные испытания материалов, изделий и технологических процессов;\nготовность использовать знание свойств химических элементов, соединений и материалов на их основе для решения задач профессиональной деятельности.",
+      "credits": 3,
+      "platform": "НПОО",
+      "link": "https://openedu.ru/course/urfu/ANALYTCHEM2/",
+      "interactive": false,
+      "tags": {
+        "Ядро бакалавриата": false,
+        "Математика и ИТ": false,
+        "Инженерные науки": false,
+        "Экономика и управление": false,
+        "Гуманитарные науки": false,
+        "Естественные науки": true,
+        "Искусственный интеллект": false,
+        "Адаптационный модуль": false
+      },
+      "language": "ru"
+    },
+    {
+      "title": "Безопасность жизнедеятельности",
+      "description": "В курсе «Безопасность жизнедеятельности» рассматриваются современные проблемы и угрозы развития цивилизации, медико-биологические и психологические основы безопасности жизнедеятельности, физическое и психологическое здоровье человека, понятия охраны труда,  анализируются действия человека при чрезвычайных ситуациях, демонстрируются приемы оказания первой медицинской помощи при авариях, чрезвычайных ситуациях и резком ухудшении здоровья.",
+      "competences": "1. Способен идентифицировать угрозы и риски в среде обитания человека, в том числе перспективные, связанные с развитием цифровой экономики.\n2. Способен создавать и поддерживать безопасные условия жизнедеятельности, в том числе при возникновении чрезвычайных ситуаций.\n3. Способен управлять экологическими рисками в целяхсохранения окружающей среды и обеспечения устойчивого развития общества.\n4. Способен соблюдать правила безопасности труда на рабочем месте.",
+      "credits": 3,
+      "platform": "НПОО",
+      "link": "https://openedu.ru/course/urfu/LifeSafety/",
+      "interactive": false,
+      "tags": {
+        "Ядро бакалавриата": true,
+        "Математика и ИТ": false,
+        "Инженерные науки": false,
+        "Экономика и управление": false,
+        "Гуманитарные науки": false,
+        "Естественные науки": false,
+        "Искусственный интеллект": false,
+        "Адаптационный модуль": false
+      },
+      "language": "ru"
+    },
+    {
+      "title": "Основы военной подготовки и безопасность жизнедеятельности",
+      "description": "В курсе «Основы военной подготовки и безопасность жизнедеятельности» рассматриваются первоначальные азы военной подготовки,  правила обращения со стрелковым оружием,  ориентирование на местности, алгоритмы поведения  в экстремальных ситуациях,  современные проблемы и угрозы развития цивилизации, медико-биологические и психологические основы безопасности жизнедеятельности, демонстрируются приемы оказания первой медицинской помощи при авариях, чрезвычайных ситуациях и резком ухудшении здоровья, раскрывается понятие охраны труда  с выбором защитных мероприятий в процессе труда и при природных и техногенных чрезвычайных ситуациях.",
+      "competences": "1. Способен идентифицировать угрозы и риски в среде обитания человека, в том числе перспективные, связанные с развитием цифровой экономики.\n2. Способен создавать и поддерживать безопасные условия жизнедеятельности, в том числе при возникновении чрезвычайных ситуаций.\n3. Способен управлять экологическими рисками в целяхсохранения окружающей среды и обеспечения устойчивого развития общества.\n4. Способен соблюдать правила безопасности труда на рабочем месте.",
+      "credits": 3,
+      "platform": "НПОО",
+      "link": "https://openedu.ru/course/urfu/MILITRLIFESAFETY/?session=fall_2024  ",
+      "interactive": false,
+      "tags": {
+        "Ядро бакалавриата": true,
+        "Математика и ИТ": false,
+        "Инженерные науки": false,
+        "Экономика и управление": false,
+        "Гуманитарные науки": false,
+        "Естественные науки": false,
+        "Искусственный интеллект": false,
+        "Адаптационный модуль": false
+      },
+      "language": "ru"
+    }
+  ]
+} 

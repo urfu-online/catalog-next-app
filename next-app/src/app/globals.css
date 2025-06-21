@@ -1233,4 +1233,173 @@ textarea.u-form-control {
   display: none; /* Chrome, Safari and Opera */
 }
 
+/* File Upload Styles */
+.file-upload-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.file-input {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.file-upload-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: #495057;
+  justify-content: center;
+  min-height: 50px;
+}
+
+.file-upload-label:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+  color: #212529;
+}
+
+.file-input:focus + .file-upload-label {
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+.file-input:disabled + .file-upload-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-help {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.875rem;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #0d6efd;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+  margin-left: 5px;
+}
+
+.link-button:hover {
+  color: #0a58ca;
+}
+
+/* Import Results Styles */
+.import-results {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.import-results h3 {
+  margin: 0 0 15px 0;
+  color: #212529;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.import-summary {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.import-stat {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.import-stat.success {
+  background-color: #d1e7dd;
+  color: #0a3622;
+  border: 1px solid #a3cfbb;
+}
+
+.import-stat.error {
+  background-color: #f8d7da;
+  color: #58151c;
+  border: 1px solid #f1aeb5;
+}
+
+.import-section {
+  margin-bottom: 20px;
+}
+
+.import-section:last-child {
+  margin-bottom: 0;
+}
+
+.import-section h4 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.import-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.import-list li {
+  padding: 8px 12px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.import-list.success li {
+  background-color: #d1e7dd;
+  color: #0a3622;
+  border-left: 4px solid #198754;
+}
+
+.import-list.error li {
+  background-color: #f8d7da;
+  color: #58151c;
+  border-left: 4px solid #dc3545;
+}
+
+.import-list li:last-child {
+  margin-bottom: 0;
+}
+
+.admin-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 

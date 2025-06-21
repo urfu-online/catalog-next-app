@@ -1,0 +1,83 @@
+{
+  "courses": [
+    {
+      "title": "Основы программирования на Python",
+      "description": "Изучите основы программирования на языке Python - одном из самых популярных языков программирования в мире.",
+      "competences": "УК-1, УК-2, ОПК-3",
+      "credits": 4,
+      "platform": "УрФУ.Онлайн",
+      "link": "https://online.urfu.ru/python-basics",
+      "interactive": true,
+      "tags": {
+        "Ядро бакалавриата": true,
+        "Математика и ИТ": true,
+        "Программирование": true,
+        "Проектное мышление": false
+      },
+      "language": "ru"
+    },
+    {
+      "title": "Data Science Fundamentals",
+      "description": "Learn the fundamentals of data science including statistics, machine learning, and data visualization.",
+      "competences": "UC-1, UC-3, PC-5",
+      "credits": 5,
+      "platform": "Coursera",
+      "link": "https://coursera.org/data-science-fundamentals",
+      "interactive": true,
+      "tags": {
+        "Ядро бакалавриата": false,
+        "Математика и ИТ": true,
+        "Аналитика данных": true,
+        "Машинное обучение": true
+      },
+      "language": "en"
+    },
+    {
+      "title": "Цифровая грамотность",
+      "description": "Курс по основам цифровой грамотности для современного специалиста.",
+      "competences": "УК-4, УК-6",
+      "credits": 2,
+      "platform": "УрФУ.Онлайн",
+      "link": "https://online.urfu.ru/digital-literacy",
+      "interactive": false,
+      "tags": {
+        "Ядро бакалавриата": true,
+        "Цифровые технологии": true,
+        "Soft Skills": true
+      },
+      "language": "ru"
+    },
+    {
+      "title": "Веб-разработка",
+      "description": "Полный курс по современной веб-разработке: HTML, CSS, JavaScript, React.",
+      "competences": "УК-1, ОПК-2, ОПК-3, ПК-1",
+      "credits": 6,
+      "platform": "Stepik",
+      "link": "https://stepik.org/course/web-dev",
+      "interactive": true,
+      "tags": {
+        "Математика и ИТ": true,
+        "Программирование": true,
+        "Веб-технологии": true,
+        "Frontend": true
+      },
+      "language": "ru"
+    },
+    {
+      "title": "Управление проектами",
+      "description": "Изучение современных методов управления проектами, включая Agile и Scrum.",
+      "competences": "УК-2, УК-3, УК-6",
+      "credits": 3,
+      "platform": "УрФУ.Онлайн",
+      "link": "https://online.urfu.ru/project-management",
+      "interactive": true,
+      "tags": {
+        "Soft Skills": true,
+        "Менеджмент": true,
+        "Проектное мышление": true,
+        "Agile": true
+      },
+      "language": "ru"
+    }
+  ]
+} 
