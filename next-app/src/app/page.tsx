@@ -1,11 +1,25 @@
 'use client'
 
-import { courses } from '@/src/app/data'
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 
+interface ICourse {
+  id?: number
+  title: string
+  description?: string
+  competences?: string
+  credits: number
+  platform: string
+  link: string
+  interactive?: boolean
+  tags: { [key: string]: boolean }
+  language: 'ru' | 'en'
+}
+
 export default function Home() {
-  const [list, setList] = useState(courses)
+  const [list, setList] = useState<ICourse[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [category, setCategory] = useState({
     'Ядро бакалавриата': true,
@@ -26,58 +40,68 @@ export default function Home() {
     'НПОО': true,
   })
 
-  // Единая функция фильтрации
-  const applyFilters = useCallback(() => {
-    let filteredCourses = courses
-
-    // Фильтр по поисковому запросу
-    if (searchTerm) {
-      filteredCourses = filteredCourses.filter(course =>
-        course.title.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+  // Функция для загрузки курсов с API
+  const fetchCourses = useCallback(async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      // Строим параметры запроса
+      const params = new URLSearchParams()
+      
+      if (searchTerm) {
+        params.append('search', searchTerm)
+      }
+      
+      // Активные категории (теги)
+      const activeCategories = Object.entries(category)
+        .filter(([_, value]) => value)
+        .map(([key, _]) => key)
+      if (activeCategories.length > 0 && activeCategories.length < 8) {
+        params.append('tags', activeCategories.join(','))
+      }
+      
+      // Активные языки
+      const activeLanguages = Object.entries(language)
+        .filter(([_, value]) => value)
+        .map(([key, _]) => key)
+      if (activeLanguages.length > 0 && activeLanguages.length < 2) {
+        params.append('languages', activeLanguages.join(','))
+      }
+      
+      // Активные платформы
+      const activePlatforms = Object.entries(platform)
+        .filter(([_, value]) => value)
+        .map(([key, _]) => key)
+      if (activePlatforms.length > 0 && activePlatforms.length < 2) {
+        params.append('platforms', activePlatforms.join(','))
+      }
+      
+      const response = await fetch(`/api/courses?${params.toString()}`)
+      
+      if (!response.ok) {
+        throw new Error('Ошибка загрузки курсов')
+      }
+      
+      const data = await response.json()
+      
+      if (data.success) {
+        setList(data.data)
+      } else {
+        throw new Error(data.error || 'Неизвестная ошибка')
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка загрузки курсов')
+      setList([])
+    } finally {
+      setLoading(false)
     }
-
-    // Фильтр по категориям
-    const activeCategories = Object.entries(category)
-      .filter(([_, value]) => value)
-      .map(([key, _]) => key)
-    
-    // Если НИ ОДНА категория не выбрана, показываем пустой результат
-    if (activeCategories.length === 0) {
-      filteredCourses = []
-    } else {
-      filteredCourses = filteredCourses.filter(course =>
-        activeCategories.some(categoryName => course.tags[categoryName])
-      )
-    }
-
-    // Фильтр по языку
-    const activeLanguages = Object.entries(language)
-      .filter(([_, value]) => value)
-      .map(([key, _]) => key)
-    
-    // Языки всегда будут выбраны (минимум один), поэтому просто фильтруем
-    filteredCourses = filteredCourses.filter(course =>
-      activeLanguages.includes(course.language)
-    )
-
-    // Фильтр по платформе
-    const activePlatforms = Object.entries(platform)
-      .filter(([_, value]) => value)
-      .map(([key, _]) => key)
-    
-    // Платформы всегда будут выбраны (минимум одна), поэтому просто фильтруем
-    filteredCourses = filteredCourses.filter(course =>
-      activePlatforms.includes(course.platform)
-    )
-
-    setList(filteredCourses)
   }, [searchTerm, category, language, platform])
 
-  // Применяем фильтры при изменении любого состояния
+  // Загружаем курсы при изменении фильтров
   useEffect(() => {
-    applyFilters()
-  }, [applyFilters])
+    fetchCourses()
+  }, [fetchCourses])
 
   const handleSearch = (value: string) => {
     setSearchTerm(value)
@@ -309,7 +333,31 @@ export default function Home() {
 
           {/* Course Cards */}
           <section className="u-col-12 u-col-lg-9">
-            {list.length === 0 ? (
+            {loading ? (
+              <div className="loading-state">
+                <div className="loading-spinner">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+                  </svg>
+                </div>
+                <p>Загрузка курсов...</p>
+              </div>
+            ) : error ? (
+              <div className="error-state">
+                <div className="error-icon">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+                <h3>Ошибка загрузки</h3>
+                <p>{error}</p>
+                <button className="u-btn u-btn-primary" onClick={fetchCourses}>
+                  Попробовать снова
+                </button>
+              </div>
+            ) : list.length === 0 ? (
               <div className="no-results">
                 <div className="no-results-icon">
                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
@@ -330,7 +378,7 @@ export default function Home() {
             ) : (
               <div className="u-row">
                 {list.map((course, index) => (
-                  <div key={course.title + index} className="u-col-12 u-col-md-6 u-col-xl-4 u-mb-4">
+                  <div key={course.id || course.title + index} className="u-col-12 u-col-md-6 u-col-xl-4 u-mb-4">
                     <a
                       href={course.link}
                       target="_blank"
