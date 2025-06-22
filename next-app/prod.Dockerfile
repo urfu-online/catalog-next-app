@@ -54,16 +54,12 @@ FROM base AS runner
 WORKDIR /app
 
 # Don't run production as root
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-# Create database directory and set permissions
-RUN mkdir -p database/data && \
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs && \
+    mkdir -p /app/database/data && \
     chown -R nextjs:nodejs /app && \
     chmod -R 755 /app && \
-    chmod 777 database/data
-
-USER nextjs
+    chmod -R 777 /app/database/data
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/database ./database
@@ -85,4 +81,4 @@ ENV NEXT_PUBLIC_ENV_VARIABLE=${NEXT_PUBLIC_ENV_VARIABLE}
 # Note: Don't expose ports here, Compose will handle that for us
 
 # Setup database and start the application
-CMD npm run db:setup && node server.js --hostname 0.0.0.0
+CMD npm run db:setup && PORT=3000 HOSTNAME=0.0.0.0 node server.js
