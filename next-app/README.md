@@ -29,7 +29,7 @@ npm run db:setup
 ```
 
 Эта команда:
-- Создаст файл `courses.db` в корне проекта
+- Создаст файл `database/data/courses.db`
 - Создаст таблицу `courses`
 - Заполнит её тестовыми данными курсов
 
@@ -145,9 +145,15 @@ next-app/
 │   └── globals.css           # Глобальные стили
 ├── lib/
 │   └── database.ts           # Утилиты для работы с БД
-├── scripts/
-│   └── migrate-data.js       # Скрипт миграции данных
-├── courses.db                # SQLite база данных
+├── database/
+│   ├── config/
+│   │   ├── config.js         # Конфигурация БД
+│   │   └── courses-data.json # Исходные данные
+│   ├── data/
+│   │   └── courses.db        # SQLite база данных
+│   └── scripts/
+│       ├── migrate.js        # Скрипт миграции данных
+│       └── setup.js          # Скрипт настройки БД
 └── package.json
 ```
 
@@ -168,7 +174,7 @@ curl -X POST http://localhost:3000/api/courses \
 
 Для переноса данных из существующего JSON файла в базу данных:
 
-1. Обновите данные в `scripts/migrate-data.js`
+1. Обновите данные в `database/scripts/migrate.js`
 2. Запустите: `npm run db:setup`
 
 ## Docker
