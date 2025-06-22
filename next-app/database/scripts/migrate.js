@@ -10,18 +10,36 @@ function migrateData() {
   console.log('🚀 Перенос данных в SQLite базу данных...')
   
   const dbPath = path.join(process.cwd(), 'database', 'data', 'courses.db')
+  const dbDir = path.dirname(dbPath)
   
-  // Удаляем существующую базу данных, если она есть
-  if (fs.existsSync(dbPath)) {
-    fs.unlinkSync(dbPath)
-    console.log('📝 Удалена существующая база данных')
+  // Создаем директорию, если она не существует
+  if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true })
   }
   
-  const db = new Database(dbPath)
+  // Пробуем удалить существующую базу данных
+  try {
+    if (fs.existsSync(dbPath)) {
+      fs.unlinkSync(dbPath)
+      console.log('📝 Удалена существующая база данных')
+    }
+  } catch (error) {
+    if (error.code === 'EACCES') {
+      console.log('⚠️ Не удалось удалить существующую базу данных из-за прав доступа')
+      // Продолжаем выполнение, SQLite сам разберется с существующим файлом
+    } else {
+      throw error
+    }
+  }
+  
+  const db = new Database(dbPath, { 
+    verbose: console.log,
+    fileMustExist: false // Позволяем создать новый файл
+  })
   
   // Создаем таблицу
   db.exec(`
-    CREATE TABLE courses (
+    CREATE TABLE IF NOT EXISTS courses (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
       description TEXT,
@@ -36,6 +54,9 @@ function migrateData() {
   `)
   
   console.log('✅ Создана таблица courses')
+  
+  // Очищаем существующие данные
+  db.exec('DELETE FROM courses')
   
   // Подготавливаем запрос для вставки
   const insertStmt = db.prepare(`

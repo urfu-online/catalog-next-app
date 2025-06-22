@@ -49,6 +49,15 @@ class DatabaseManager {
     `)
   }
 
+  // Методы для работы с SQL-запросами
+  prepare(sql: string) {
+    return this.db.prepare(sql)
+  }
+
+  exec(sql: string) {
+    return this.db.exec(sql)
+  }
+
   // Получить все курсы
   getAllCourses(): ICourse[] {
     const stmt = this.db.prepare('SELECT * FROM courses ORDER BY title')
@@ -65,6 +74,20 @@ class DatabaseManager {
   getCourseById(id: number): ICourse | null {
     const stmt = this.db.prepare('SELECT * FROM courses WHERE id = ?')
     const row = stmt.get(id) as ICourse | undefined
+    
+    if (!row) return null
+    
+    return {
+      ...row,
+      tags: JSON.parse(row.tags),
+      interactive: Boolean(row.interactive)
+    }
+  }
+
+  // Получить курс по названию
+  getCourseByTitle(title: string): ICourse | null {
+    const stmt = this.db.prepare('SELECT * FROM courses WHERE title = ?')
+    const row = stmt.get(title) as ICourse | undefined
     
     if (!row) return null
     

@@ -83,30 +83,23 @@ export async function POST(request: NextRequest) {
         }
         
         // Проверка существования курса с таким же названием
-        const existingCourse = db.prepare('SELECT id FROM courses WHERE title = ?').get(course.title)
+        const existingCourse = db.getCourseByTitle(course.title)
         if (existingCourse) {
           throw new Error('Курс с таким названием уже существует')
         }
         
-        // Подготовка данных для вставки
-        const tagsJson = JSON.stringify(course.tags || {})
-        
-        const stmt = db.prepare(`
-          INSERT INTO courses (title, description, competences, credits, platform, link, interactive, tags, language)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `)
-        
-        stmt.run(
-          course.title.trim(),
-          course.description?.trim() || '',
-          course.competences?.trim() || '',
-          course.credits,
-          course.platform.trim(),
-          course.link.trim(),
-          course.interactive ? 1 : 0,
-          tagsJson,
-          course.language
-        )
+        // Добавляем курс через метод addCourse
+        const courseId = db.addCourse({
+          title: course.title.trim(),
+          description: course.description?.trim() || '',
+          competences: course.competences?.trim() || '',
+          credits: course.credits,
+          platform: course.platform.trim(),
+          link: course.link.trim(),
+          interactive: course.interactive || false,
+          tags: JSON.stringify(course.tags || {}),
+          language: course.language
+        })
         
         result.imported++
         result.details.successful.push(`Курс ${courseNumber}: "${course.title}"`)

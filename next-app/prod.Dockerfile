@@ -58,7 +58,10 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # Create database directory and set permissions
-RUN mkdir -p database/data && chown -R nextjs:nodejs database
+RUN mkdir -p database/data && \
+    chown -R nextjs:nodejs /app && \
+    chmod -R 755 /app && \
+    chmod 777 database/data
 
 USER nextjs
 
