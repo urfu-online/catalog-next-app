@@ -139,7 +139,7 @@ export default function Home() {
       <header className="u-header u-bg-light u-sticky-top">
         <div className="u-container">
           <div className="u-row u-py-3">
-            <div className="u-col-12 u-col-lg-3 u-mb-3 u-mb-lg-0">
+            <div className="u-col-12 u-col-lg-3 u-mb-3 u-mb-lg-0 mt-2">
               <div style={{ position: 'relative' }}>
                 <Image src="/urfu_logo.svg" alt="УрФУ" width="275" height="80" className="u-img-responsive" />
                 {/* Скрытая ссылка на админ панель */}

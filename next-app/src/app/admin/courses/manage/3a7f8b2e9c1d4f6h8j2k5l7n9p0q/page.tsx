@@ -230,7 +230,7 @@ export default function AdminCoursesPage() {
       {/* Header */}
       <header className="u-header u-bg-light u-sticky-top">
         <div className="u-container">
-          <div className="header-content">
+          <div className="header-content justify-between">
             <div className="logo-section">
               <a href="/" className="logo-link">
                 <Image 
@@ -244,7 +244,7 @@ export default function AdminCoursesPage() {
               </a>
             </div>
            
-            <h1 className="admin-title">
+            <h1 className="admin-title ">
               Администрирование курсов
             </h1>
           </div>
