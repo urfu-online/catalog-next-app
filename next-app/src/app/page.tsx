@@ -142,22 +142,7 @@ export default function Home() {
             <div className="u-col-12 u-col-lg-3 u-mb-3 u-mb-lg-0 mt-2">
               <div style={{ position: 'relative' }}>
                 <Image src="/urfu_logo.svg" alt="УрФУ" width="275" height="80" className="u-img-responsive" />
-                {/* Скрытая ссылка на админ панель */}
-                <a 
-                  href="/admin/courses/manage/3a7f8b2e9c1d4f6h8j2k5l7n9p0q"
-                  style={{ 
-                    position: 'absolute', 
-                    top: 0, 
-                    right: 0, 
-                    width: '20px', 
-                    height: '20px', 
-                    opacity: 0,
-                    zIndex: 10
-                  }}
-                  title="Административная панель"
-                >
-                  🔧
-                </a>
+      
               </div>
             </div>
             <div className="u-col-12 u-col-lg-9">
