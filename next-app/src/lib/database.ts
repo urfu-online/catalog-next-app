@@ -86,7 +86,7 @@ class DatabaseManager {
 
   // Получить курс по названию
   getCourseByTitle(title: string): ICourse | null {
-    const stmt = this.db.prepare('SELECT * FROM courses WHERE title = ?')
+    const stmt = this.db.prepare('SELECT * FROM courses WHERE title COLLATE NOCASE = ?')
     const row = stmt.get(title) as ICourse | undefined
     
     if (!row) return null
@@ -184,8 +184,15 @@ class DatabaseManager {
     const params: any[] = []
 
     if (searchTerm) {
-      query += ' AND (title LIKE ? OR description LIKE ?)'
-      params.push(`%${searchTerm}%`, `%${searchTerm}%`)
+      // Разбиваем поисковый запрос на отдельные слова
+      const searchWords = searchTerm.trim().split(/\s+/)
+      const conditions = searchWords.map(() => '(title COLLATE NOCASE LIKE ? OR description COLLATE NOCASE LIKE ?)')
+      
+      query += ` AND (${conditions.join(' AND ')})`
+      // Добавляем параметры для каждого слова
+      searchWords.forEach(word => {
+        params.push(`%${word}%`, `%${word}%`)
+      })
     }
 
     if (languages && languages.length > 0) {
@@ -198,7 +205,7 @@ class DatabaseManager {
       params.push(...platforms)
     }
 
-    query += ' ORDER BY title'
+    query += ' ORDER BY title COLLATE NOCASE'
     
     const stmt = this.db.prepare(query)
     const rows = stmt.all(...params) as ICourse[]
