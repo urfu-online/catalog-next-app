@@ -18,9 +18,17 @@ class DatabaseManager {
   private db: Database.Database
 
   constructor() {
-    const dbPath = path.join(process.cwd(), 'database', 'data', 'courses.db')
-    this.db = new Database(dbPath)
-    this.init()
+    try {
+      // Используем абсолютный путь от корня проекта
+      const dbPath = path.resolve(process.cwd(), 'database', 'data', 'courses.db')
+      console.log('Подключение к базе данных:', dbPath)
+      
+      this.db = new Database(dbPath, { verbose: console.log })
+      this.init()
+    } catch (error) {
+      console.error('Ошибка при инициализации базы данных:', error)
+      throw error
+    }
   }
 
   private init() {
@@ -193,12 +201,17 @@ class DatabaseManager {
   }
 }
 
-// Синглтон для базы данных
+// Синглтон для базы данных с обработкой ошибок
 let dbInstance: DatabaseManager | null = null
 
 export function getDatabase(): DatabaseManager {
   if (!dbInstance) {
-    dbInstance = new DatabaseManager()
+    try {
+      dbInstance = new DatabaseManager()
+    } catch (error) {
+      console.error('Ошибка при создании экземпляра базы данных:', error)
+      throw error
+    }
   }
   return dbInstance
 } 

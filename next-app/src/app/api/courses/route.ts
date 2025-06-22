@@ -16,8 +16,12 @@ export async function GET(request: NextRequest) {
     const languages = languagesParam ? languagesParam.split(',') : undefined
     const platforms = platformsParam ? platformsParam.split(',') : undefined
     
+    console.log('Параметры запроса:', { searchTerm, tags, languages, platforms })
+    
     const db = getDatabase()
     const courses = db.searchCourses(searchTerm, tags, languages, platforms)
+    
+    console.log(`Найдено ${courses.length} курсов`)
     
     return NextResponse.json({
       success: true,
@@ -26,6 +30,30 @@ export async function GET(request: NextRequest) {
     })
   } catch (error) {
     console.error('Ошибка при получении курсов:', error)
+    
+    // Определяем тип ошибки для более точного ответа
+    if (error instanceof Error) {
+      if (error.message.includes('no such file or directory')) {
+        return NextResponse.json(
+          { 
+            success: false, 
+            error: 'База данных не найдена. Пожалуйста, убедитесь, что база данных создана и доступна.' 
+          },
+          { status: 500 }
+        )
+      }
+      
+      if (error.message.includes('SQLITE_CANTOPEN')) {
+        return NextResponse.json(
+          { 
+            success: false, 
+            error: 'Не удалось открыть базу данных. Проверьте права доступа.' 
+          },
+          { status: 500 }
+        )
+      }
+    }
+    
     return NextResponse.json(
       { 
         success: false, 
