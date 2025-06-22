@@ -6,8 +6,33 @@ const fs = require('fs')
 const coursesDataPath = path.join(process.cwd(), 'database', 'config', 'courses-data.json')
 const coursesData = JSON.parse(fs.readFileSync(coursesDataPath, 'utf8'))
 
+function checkExistingDatabase(dbPath) {
+  if (!fs.existsSync(dbPath)) {
+    return false
+  }
+
+  try {
+    const db = new Database(dbPath, { readonly: true })
+    
+    // Проверяем существование таблицы courses и наличие в ней данных
+    const tableExists = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='courses'").get()
+    if (!tableExists) {
+      db.close()
+      return false
+    }
+
+    const courseCount = db.prepare('SELECT COUNT(*) as count FROM courses').get()
+    db.close()
+
+    return courseCount.count > 0
+  } catch (error) {
+    console.error('Ошибка при проверке существующей базы данных:', error)
+    return false
+  }
+}
+
 function migrateData() {
-  console.log('🚀 Перенос данных в SQLite базу данных...')
+  console.log('🚀 Проверка и настройка базы данных SQLite...')
   
   const dbPath = path.join(process.cwd(), 'database', 'data', 'courses.db')
   const dbDir = path.dirname(dbPath)
@@ -16,12 +41,22 @@ function migrateData() {
   if (!fs.existsSync(dbDir)) {
     fs.mkdirSync(dbDir, { recursive: true })
   }
+
+  // Проверяем существующую базу данных
+  const hasExistingData = checkExistingDatabase(dbPath)
+  if (hasExistingData) {
+    console.log('✅ Обнаружена существующая база данных с данными')
+    console.log(`📍 Файл базы данных: ${dbPath}`)
+    return
+  }
   
-  // Пробуем удалить существующую базу данных
+  console.log('📝 Создание новой базы данных...')
+  
+  // Пробуем удалить существующую пустую базу данных
   try {
     if (fs.existsSync(dbPath)) {
       fs.unlinkSync(dbPath)
-      console.log('📝 Удалена существующая база данных')
+      console.log('📝 Удалена существующая пустая база данных')
     }
   } catch (error) {
     if (error.code === 'EACCES') {
