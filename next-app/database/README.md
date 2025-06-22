@@ -63,7 +63,7 @@ npm run db:test
 | title | TEXT | Название курса |
 | description | TEXT | Описание курса |
 | competences | TEXT | Компетенции |
-| credits | INTEGER | Кредиты (1-10) |
+| credits | INTEGER | Зачетные еденицы (1-10) |
 | platform | TEXT | Платформа |
 | link | TEXT | Ссылка на курс |
 | interactive | BOOLEAN | Интерактивность |

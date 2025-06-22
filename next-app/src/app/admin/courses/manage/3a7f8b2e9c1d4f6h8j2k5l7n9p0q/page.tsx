@@ -348,7 +348,7 @@ export default function AdminCoursesPage() {
                                 </>
                               )}
                             </span>
-                            <span className="u-status u-status-success">{course.credits} кредитов</span>
+                            <span className="u-status u-status-success">{course.credits} з.е.</span>
                             {course.interactive && (
                               <span className="u-status u-status-warning">
                                 <svg
@@ -518,7 +518,7 @@ export default function AdminCoursesPage() {
                       <div className="u-col-6">
                         <div className="u-form-item">
                           <label htmlFor="credits" className="u-form-label">
-                            Кредиты *
+                            Зачетные еденицы *
                           </label>
                           <input
                             id="credits"

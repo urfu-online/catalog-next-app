@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
         }
         
         if (!course.credits || course.credits < 1 || course.credits > 10) {
-          throw new Error('Кредиты должны быть числом от 1 до 10')
+          throw new Error('Зачетные еденицы должны быть числом от 1 до 10')
         }
         
         if (!course.platform?.trim()) {
