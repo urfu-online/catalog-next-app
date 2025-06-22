@@ -47,7 +47,7 @@ export default function AdminCoursesPage() {
     link: '',
     interactive: false,
     tags: { ...defaultTags },
-    language: 'ru'
+    language: 'ru',
   })
 
   // Загрузка курсов
@@ -56,7 +56,7 @@ export default function AdminCoursesPage() {
       setLoading(true)
       const response = await fetch('/api/courses')
       const data = await response.json()
-      
+
       if (data.success) {
         setCourses(data.data)
       } else {
@@ -87,7 +87,7 @@ export default function AdminCoursesPage() {
   // Обработка формы
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     try {
       let response
       if (editingCourse) {
@@ -95,19 +95,19 @@ export default function AdminCoursesPage() {
         response = await fetch(`/api/courses/${editingCourse.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(formData),
         })
       } else {
         // Создание нового курса
         response = await fetch('/api/courses', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(formData),
         })
       }
 
       const data = await response.json()
-      
+
       if (data.success) {
         setSuccess(editingCourse ? 'Курс успешно обновлен!' : 'Курс успешно добавлен!')
         resetForm()
@@ -126,11 +126,11 @@ export default function AdminCoursesPage() {
 
     try {
       const response = await fetch(`/api/courses/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
       })
-      
+
       const data = await response.json()
-      
+
       if (data.success) {
         setSuccess('Курс успешно удален!')
         fetchCourses()
@@ -160,7 +160,7 @@ export default function AdminCoursesPage() {
       link: '',
       interactive: false,
       tags: { ...defaultTags },
-      language: 'ru'
+      language: 'ru',
     })
     setEditingCourse(null)
     setIsAddingNew(false)
@@ -168,9 +168,9 @@ export default function AdminCoursesPage() {
 
   // Обновление тегов
   const updateTag = (tagName: string, value: boolean) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      tags: { ...prev.tags, [tagName]: value }
+      tags: { ...prev.tags, [tagName]: value },
     }))
   }
 
@@ -195,7 +195,7 @@ export default function AdminCoursesPage() {
       const response = await fetch('/api/courses/import', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(jsonData)
+        body: JSON.stringify(jsonData),
       })
 
       const result = await response.json()
@@ -237,7 +237,7 @@ export default function AdminCoursesPage() {
             <div className="u-col-12 u-col-lg-6 u-text-right">
               <h1 className="admin-title">
                 <svg className="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
                 </svg>
                 Администрирование курсов
               </h1>
@@ -257,7 +257,7 @@ export default function AdminCoursesPage() {
             </div>
           </div>
         )}
-        
+
         {error && (
           <div className="u-row u-mb-4">
             <div className="u-col-12">
@@ -276,18 +276,14 @@ export default function AdminCoursesPage() {
                 <div className="admin-form-header">
                   <h2 className="admin-card-title">
                     <svg className="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                      <polyline points="7,10 12,15 17,10"/>
-                      <line x1="12" y1="15" x2="12" y2="3"/>
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7,10 12,15 17,10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
                     Пакетный импорт курсов
                   </h2>
                   {importResult && (
-                    <button 
-                      type="button" 
-                      className="u-btn u-btn-secondary u-btn-sm"
-                      onClick={clearImportResult}
-                    >
+                    <button type="button" className="u-btn u-btn-secondary u-btn-sm" onClick={clearImportResult}>
                       Скрыть результат
                     </button>
                   )}
@@ -309,36 +305,36 @@ export default function AdminCoursesPage() {
                       />
                       <label htmlFor="course-import" className="file-upload-label">
                         <svg className="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                          <polyline points="7,10 12,15 17,10"/>
-                          <line x1="12" y1="15" x2="12" y2="3"/>
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="7,10 12,15 17,10" />
+                          <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
                         {isImporting ? 'Импортируем...' : 'Выбрать JSON файл'}
                       </label>
                     </div>
                     <small className="form-help">
-                      Файл должен содержать объект с массивом courses. 
-                      <button 
-                        type="button" 
+                      Файл должен содержать объект с массивом courses.
+                      <button
+                        type="button"
                         className="link-button"
                         onClick={() => {
                           const example = {
                             courses: [
                               {
-                                title: "Пример курса",
-                                description: "Описание курса",
-                                competences: "Компетенции курса",
+                                title: 'Пример курса',
+                                description: 'Описание курса',
+                                competences: 'Компетенции курса',
                                 credits: 3,
-                                platform: "УрФУ.Онлайн",
-                                link: "https://example.com",
+                                platform: 'УрФУ.Онлайн',
+                                link: 'https://example.com',
                                 interactive: true,
                                 tags: {
-                                  "Ядро бакалавриата": true,
-                                  "Математика и ИТ": false
+                                  'Ядро бакалавриата': true,
+                                  'Математика и ИТ': false,
                                 },
-                                language: "ru"
-                              }
-                            ]
+                                language: 'ru',
+                              },
+                            ],
                           }
                           navigator.clipboard.writeText(JSON.stringify(example, null, 2))
                           setSuccess('Пример структуры скопирован в буфер обмена!')
@@ -355,12 +351,8 @@ export default function AdminCoursesPage() {
                   <div className="import-results">
                     <h3>Результаты импорта:</h3>
                     <div className="import-summary">
-                      <span className="import-stat success">
-                        ✓ Успешно: {importResult.imported}
-                      </span>
-                      <span className="import-stat error">
-                        ✗ Ошибки: {importResult.failed}
-                      </span>
+                      <span className="import-stat success">✓ Успешно: {importResult.imported}</span>
+                      <span className="import-stat error">✗ Ошибки: {importResult.failed}</span>
                     </div>
 
                     {importResult.details.successful.length > 0 && (
@@ -401,27 +393,23 @@ export default function AdminCoursesPage() {
                     {editingCourse ? (
                       <>
                         <svg className="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                          <path d="m18.5 2.5 a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                          <path d="m18.5 2.5 a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                         </svg>
                         Редактировать курс
                       </>
                     ) : (
                       <>
                         <svg className="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <line x1="12" y1="5" x2="12" y2="19"/>
-                          <line x1="5" y1="12" x2="19" y2="12"/>
+                          <line x1="12" y1="5" x2="12" y2="19" />
+                          <line x1="5" y1="12" x2="19" y2="12" />
                         </svg>
                         Добавить курс
                       </>
                     )}
                   </h2>
                   {(editingCourse || isAddingNew) && (
-                    <button 
-                      type="button" 
-                      className="u-btn u-btn-secondary u-btn-sm"
-                      onClick={resetForm}
-                    >
+                    <button type="button" className="u-btn u-btn-secondary u-btn-sm" onClick={resetForm}>
                       Отмена
                     </button>
                   )}
@@ -429,41 +417,47 @@ export default function AdminCoursesPage() {
               </div>
 
               <div className="admin-card-body">
-                {(editingCourse || isAddingNew) ? (
+                {editingCourse || isAddingNew ? (
                   <form onSubmit={handleSubmit} className="u-form">
                     <div className="u-form-item">
-                      <label htmlFor="title" className="u-form-label">Название курса *</label>
+                      <label htmlFor="title" className="u-form-label">
+                        Название курса *
+                      </label>
                       <input
                         id="title"
                         type="text"
                         className="u-form-control"
                         value={formData.title}
-                        onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
                         placeholder="Введите название курса"
                         required
                       />
                     </div>
 
                     <div className="u-form-item">
-                      <label htmlFor="description" className="u-form-label">Описание</label>
+                      <label htmlFor="description" className="u-form-label">
+                        Описание
+                      </label>
                       <textarea
                         id="description"
                         className="u-form-control"
                         rows={4}
                         value={formData.description || ''}
-                        onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
                         placeholder="Подробное описание курса, целей и задач"
                       />
                     </div>
 
                     <div className="u-form-item">
-                      <label htmlFor="competences" className="u-form-label">Компетенции</label>
+                      <label htmlFor="competences" className="u-form-label">
+                        Компетенции
+                      </label>
                       <textarea
                         id="competences"
                         className="u-form-control"
                         rows={3}
                         value={formData.competences || ''}
-                        onChange={(e) => setFormData(prev => ({ ...prev, competences: e.target.value }))}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, competences: e.target.value }))}
                         placeholder="Список компетенций, которые развивает курс"
                       />
                     </div>
@@ -471,7 +465,9 @@ export default function AdminCoursesPage() {
                     <div className="u-row">
                       <div className="u-col-6">
                         <div className="u-form-item">
-                          <label htmlFor="credits" className="u-form-label">Кредиты *</label>
+                          <label htmlFor="credits" className="u-form-label">
+                            Кредиты *
+                          </label>
                           <input
                             id="credits"
                             type="number"
@@ -479,19 +475,23 @@ export default function AdminCoursesPage() {
                             min="1"
                             max="10"
                             value={formData.credits}
-                            onChange={(e) => setFormData(prev => ({ ...prev, credits: parseInt(e.target.value) }))}
+                            onChange={(e) => setFormData((prev) => ({ ...prev, credits: parseInt(e.target.value) }))}
                             required
                           />
                         </div>
                       </div>
                       <div className="u-col-6">
                         <div className="u-form-item">
-                          <label htmlFor="language" className="u-form-label">Язык *</label>
+                          <label htmlFor="language" className="u-form-label">
+                            Язык *
+                          </label>
                           <select
                             id="language"
                             className="u-form-control"
                             value={formData.language}
-                            onChange={(e) => setFormData(prev => ({ ...prev, language: e.target.value as 'ru' | 'en' }))}
+                            onChange={(e) =>
+                              setFormData((prev) => ({ ...prev, language: e.target.value as 'ru' | 'en' }))
+                            }
                             required
                           >
                             <option value="ru">Русский</option>
@@ -502,12 +502,14 @@ export default function AdminCoursesPage() {
                     </div>
 
                     <div className="u-form-item">
-                      <label htmlFor="platform" className="u-form-label">Платформа *</label>
+                      <label htmlFor="platform" className="u-form-label">
+                        Платформа *
+                      </label>
                       <select
                         id="platform"
                         className="u-form-control"
                         value={formData.platform}
-                        onChange={(e) => setFormData(prev => ({ ...prev, platform: e.target.value }))}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, platform: e.target.value }))}
                         required
                       >
                         <option value="УрФУ.Онлайн">УрФУ.Онлайн</option>
@@ -516,13 +518,15 @@ export default function AdminCoursesPage() {
                     </div>
 
                     <div className="u-form-item">
-                      <label htmlFor="link" className="u-form-label">Ссылка на курс *</label>
+                      <label htmlFor="link" className="u-form-label">
+                        Ссылка на курс *
+                      </label>
                       <input
                         id="link"
                         type="url"
                         className="u-form-control"
                         value={formData.link}
-                        onChange={(e) => setFormData(prev => ({ ...prev, link: e.target.value }))}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, link: e.target.value }))}
                         placeholder="https://example.com/course"
                         required
                       />
@@ -533,7 +537,7 @@ export default function AdminCoursesPage() {
                         <input
                           type="checkbox"
                           checked={formData.interactive}
-                          onChange={(e) => setFormData(prev => ({ ...prev, interactive: e.target.checked }))}
+                          onChange={(e) => setFormData((prev) => ({ ...prev, interactive: e.target.checked }))}
                         />
                         <span className="u-checkbox-mark"></span>
                         <span className="u-checkbox-text">Интерактивный курс</span>
@@ -563,18 +567,30 @@ export default function AdminCoursesPage() {
                       <button type="submit" className="u-btn u-btn-primary u-btn-block">
                         {editingCourse ? (
                           <>
-                            <svg className="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                              <polyline points="17,21 17,13 7,13 7,21"/>
-                              <polyline points="7,3 7,8 15,8"/>
+                            <svg
+                              className="icon-md"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                              <polyline points="17,21 17,13 7,13 7,21" />
+                              <polyline points="7,3 7,8 15,8" />
                             </svg>
                             Сохранить изменения
                           </>
                         ) : (
                           <>
-                            <svg className="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <line x1="12" y1="5" x2="12" y2="19"/>
-                              <line x1="5" y1="12" x2="19" y2="12"/>
+                            <svg
+                              className="icon-md"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <line x1="12" y1="5" x2="12" y2="19" />
+                              <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
                             Добавить курс
                           </>
@@ -585,13 +601,10 @@ export default function AdminCoursesPage() {
                 ) : (
                   <div className="empty-state">
                     <p>Выберите курс для редактирования или добавьте новый</p>
-                    <button 
-                      className="u-btn u-btn-primary"
-                      onClick={() => setIsAddingNew(true)}
-                    >
+                    <button className="u-btn u-btn-primary" onClick={() => setIsAddingNew(true)}>
                       <svg className="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <line x1="12" y1="5" x2="12" y2="19"/>
-                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
                       </svg>
                       Добавить новый курс
                     </button>
@@ -608,22 +621,18 @@ export default function AdminCoursesPage() {
                 <div className="admin-list-header">
                   <h2 className="admin-card-title">
                     <svg className="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                     </svg>
                     Список курсов ({courses.length})
                   </h2>
-                                      <button 
-                    className="u-btn u-btn-secondary u-btn-sm"
-                    onClick={fetchCourses}
-                    disabled={loading}
-                  >
+                  <button className="u-btn u-btn-secondary u-btn-sm" onClick={fetchCourses} disabled={loading}>
                     <svg className="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="23 4 23 10 17 10"/>
-                      <polyline points="1 20 1 14 7 14"/>
-                      <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                      <polyline points="23 4 23 10 17 10" />
+                      <polyline points="1 20 1 14 7 14" />
+                      <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
                     </svg>
-                    Обновить
+                    <span style={{ marginLeft: '4px' }}>Обновить</span>
                   </button>
                 </div>
               </div>
@@ -633,7 +642,7 @@ export default function AdminCoursesPage() {
                   <div className="loading-state">
                     <div className="loading-spinner">
                       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+                        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" />
                       </svg>
                     </div>
                     <p>Загрузка курсов...</p>
@@ -645,35 +654,49 @@ export default function AdminCoursesPage() {
                         <div className="course-info">
                           <h3 className="course-title">{course.title}</h3>
                           <div className="course-meta u-mb-2">
-                            <span className="u-status u-status-primary">
-                              {course.platform}
-                            </span>
+                            <span className="u-status u-status-primary">{course.platform}</span>
                             <span className="u-status u-status-secondary">
                               {course.language === 'ru' ? (
                                 <>
-                                  <svg className="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                                  <svg
+                                    className="icon-xs"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                  >
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
                                   </svg>
                                   RU
                                 </>
                               ) : (
                                 <>
-                                  <svg className="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                                  <svg
+                                    className="icon-xs"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                  >
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
                                   </svg>
                                   EN
                                 </>
                               )}
                             </span>
-                            <span className="u-status u-status-success">
-                              {course.credits} кредитов
-                            </span>
+                            <span className="u-status u-status-success">{course.credits} кредитов</span>
                             {course.interactive && (
                               <span className="u-status u-status-warning">
-                                <svg className="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                                <svg
+                                  className="icon-xs"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                >
+                                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                                 </svg>
                                 Интерактивный
                               </span>
@@ -695,9 +718,15 @@ export default function AdminCoursesPage() {
                             onClick={() => startEdit(course)}
                             title="Редактировать курс"
                           >
-                            <svg className="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                              <path d="m18.5 2.5 a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            <svg
+                              className="icon-sm"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                              <path d="m18.5 2.5 a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                             </svg>
                           </button>
                           <button
@@ -705,11 +734,17 @@ export default function AdminCoursesPage() {
                             onClick={() => course.id && handleDelete(course.id)}
                             title="Удалить курс"
                           >
-                            <svg className="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <polyline points="3,6 5,6 21,6"/>
-                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                              <line x1="10" y1="11" x2="10" y2="17"/>
-                              <line x1="14" y1="11" x2="14" y2="17"/>
+                            <svg
+                              className="icon-sm"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <polyline points="3,6 5,6 21,6" />
+                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                              <line x1="10" y1="11" x2="10" y2="17" />
+                              <line x1="14" y1="11" x2="14" y2="17" />
                             </svg>
                           </button>
                           <a
@@ -719,9 +754,15 @@ export default function AdminCoursesPage() {
                             className="u-btn u-btn-primary u-btn-sm"
                             title="Открыть курс"
                           >
-                            <svg className="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                            <svg
+                              className="icon-sm"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                             </svg>
                           </a>
                         </div>
@@ -736,4 +777,4 @@ export default function AdminCoursesPage() {
       </main>
     </div>
   )
-} 
+}
