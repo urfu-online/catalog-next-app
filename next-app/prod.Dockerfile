@@ -85,4 +85,4 @@ ENV NEXT_PUBLIC_ENV_VARIABLE=${NEXT_PUBLIC_ENV_VARIABLE}
 # Note: Don't expose ports here, Compose will handle that for us
 
 # Setup database and start the application
-CMD npm run db:setup && node server.js
+CMD npm run db:setup && node server.js --hostname 0.0.0.0
