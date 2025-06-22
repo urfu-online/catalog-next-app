@@ -18,7 +18,7 @@ class DatabaseManager {
   private db: Database.Database
 
   constructor() {
-    const dbPath = path.join(process.cwd(), 'courses.db')
+    const dbPath = path.join(process.cwd(), 'database', 'data', 'courses.db')
     this.db = new Database(dbPath)
     this.init()
   }

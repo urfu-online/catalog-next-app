@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:setup": "node scripts/migrate-data.js"
+    "db:setup": "node database/scripts/migrate-data.js",
+    "db:migrate": "node database/scripts/migrate-data.js"
   },
   "dependencies": {
     "axios": "^1.7.4",

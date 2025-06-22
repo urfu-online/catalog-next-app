@@ -69,7 +69,7 @@ const coursesData = [
 function migrateData() {
   console.log('🚀 Перенос данных в SQLite базу данных...')
   
-  const dbPath = path.join(process.cwd(), 'courses.db')
+  const dbPath = path.join(process.cwd(), 'database', 'data', 'courses.db')
   
   // Удаляем существующую базу данных, если она есть
   if (fs.existsSync(dbPath)) {

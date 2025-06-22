@@ -8,7 +8,7 @@ const { courses } = require('../src/app/data.ts')
 function setupDatabase() {
   console.log('🚀 Настройка базы данных...')
   
-  const dbPath = path.join(process.cwd(), 'courses.db')
+  const dbPath = path.join(process.cwd(), 'database', 'data', 'courses.db')
   
   // Удаляем существующую базу данных, если она есть
   if (fs.existsSync(dbPath)) {
