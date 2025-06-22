@@ -18,11 +18,14 @@ RUN \
 
 COPY src ./src
 COPY public ./public
+COPY database ./database
 COPY next.config.js .
 COPY tsconfig.json .
 COPY tailwind.config.ts .
 COPY postcss.config.js .
 
+# Create database directory
+RUN mkdir -p database/data
 
 # Environment variables must be present at build time
 # https://github.com/vercel/next.js/discussions/14030
@@ -53,9 +56,14 @@ WORKDIR /app
 # Don't run production as root
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
+
+# Create database directory and set permissions
+RUN mkdir -p database/data && chown -R nextjs:nodejs database
+
 USER nextjs
 
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/database ./database
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
@@ -73,4 +81,5 @@ ENV NEXT_PUBLIC_ENV_VARIABLE=${NEXT_PUBLIC_ENV_VARIABLE}
 
 # Note: Don't expose ports here, Compose will handle that for us
 
-CMD ["node", "server.js"]
+# Setup database and start the application
+CMD npm run db:setup && node server.js

@@ -14,12 +14,14 @@ RUN \
 
 COPY src ./src
 COPY public ./public
+COPY database ./database
 COPY next.config.js .
 COPY tsconfig.json .
 COPY tailwind.config.ts .
 COPY postcss.config.js .
 
-
+# Create database directory
+RUN mkdir -p database/data
 
 # Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line to disable telemetry at run time
@@ -27,8 +29,11 @@ COPY postcss.config.js .
 
 # Note: Don't expose ports here, Compose will handle that for us
 
-# Start Next.js in development mode based on the preferred package manager
+# Start Next.js in development mode based on the preferred package manager and setup database
 CMD \
+  echo "Setting up database..." && \
+  npm run db:setup && \
+  echo "Database setup complete. Starting development server..." && \
   if [ -f yarn.lock ]; then yarn dev; \
   elif [ -f package-lock.json ]; then npm run dev; \
   elif [ -f pnpm-lock.yaml ]; then pnpm dev; \

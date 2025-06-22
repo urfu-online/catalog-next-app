@@ -18,6 +18,8 @@ services:
     volumes:
       - ./next-app/src:/app/src
       - ./next-app/public:/app/public
+      - ./next-app/database:/app/database
+      - db-data:/app/database/data
     restart: always
     ports:
       - 3000:3000
@@ -26,3 +28,7 @@ services:
 
 networks:
   my_network:
+
+volumes:
+  db-data:
+    driver: local
