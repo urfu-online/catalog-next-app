@@ -352,13 +352,11 @@ export default function Home() {
           {/* Course Cards */}
           <section className="u-col-12 u-col-lg-9">
             {loading ? (
-              <div className="loading-state">
-                <div className="loading-spinner">
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
-                  </svg>
-                </div>
-                <p>Загрузка курсов...</p>
+              <div className="u-preloader-mini">
+                <svg className="u-preloader-mini-container" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="24" cy="24" r="23" stroke="#1E4391" strokeWidth="2"/>
+                  <circle className="u-preloader-mini-dot" cx="6.5" cy="6.5" r="6.5" fill="#1E4391"/>
+                </svg>
               </div>
             ) : error ? (
               <div className="error-state">

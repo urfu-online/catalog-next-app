@@ -384,8 +384,169 @@ export default function AdminCoursesPage() {
             </div>
           </div>
 
-          {/* Форма добавления/редактирования */}
-          <div className="u-col-12 u-col-lg-5 u-mb-4">
+
+
+          {/* Список курсов */}
+          <div className="u-col-12 u-col-lg-7">
+            <div className="admin-card">
+              <div className="admin-card-header">
+                <div className="admin-list-header">
+                  <h2 className="admin-card-title">
+                    <svg className="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                    </svg>
+                    Список курсов ({courses.length})
+                  </h2>
+                  <button className="u-btn u-btn-secondary u-btn-sm" onClick={fetchCourses} disabled={loading}>
+                    <svg className="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="23 4 23 10 17 10" />
+                      <polyline points="1 20 1 14 7 14" />
+                      <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
+                    </svg>
+                    <span style={{ marginLeft: '4px' }}>Обновить</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="admin-card-body">
+                {loading ? (
+                  <div className="loading-state">
+                    <div className="loading-spinner">
+                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" />
+                      </svg>
+                    </div>
+                    <p>Загрузка курсов...</p>
+                  </div>
+                ) : (
+                  <div className="courses-list">
+                    {courses.map((course) => (
+                      <div key={course.id} className="course-item u-mb-3">
+                        <div className="course-info">
+                          <h3 className="course-title">{course.title}</h3>
+                          <div className="course-meta u-mb-2">
+                            <span className="u-status u-status-primary">{course.platform}</span>
+                            <span className="u-status u-status-secondary">
+                              {course.language === 'ru' ? (
+                                <>
+                                  <svg
+                                    className="icon-xs"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                  >
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                                  </svg>
+                                  RU
+                                </>
+                              ) : (
+                                <>
+                                  <svg
+                                    className="icon-xs"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                  >
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                                  </svg>
+                                  EN
+                                </>
+                              )}
+                            </span>
+                            <span className="u-status u-status-success">{course.credits} кредитов</span>
+                            {course.interactive && (
+                              <span className="u-status u-status-warning">
+                                <svg
+                                  className="icon-xs"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                >
+                                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                                </svg>
+                                Интерактивный
+                              </span>
+                            )}
+                          </div>
+                          <div className="course-tags">
+                            {Object.entries(course.tags)
+                              .filter(([_, value]) => value)
+                              .map(([tag, _]) => (
+                                <span key={tag} className="u-status u-status-light">
+                                  {tag}
+                                </span>
+                              ))}
+                          </div>
+                        </div>
+                        <div className="course-actions">
+                          <button
+                            className="u-btn u-btn-secondary u-btn-sm"
+                            onClick={() => startEdit(course)}
+                            title="Редактировать курс"
+                          >
+                            <svg
+                              className="icon-sm"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                              <path d="m18.5 2.5 a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                            </svg>
+                          </button>
+                          <button
+                            className="u-btn u-btn-danger u-btn-sm"
+                            onClick={() => course.id && handleDelete(course.id)}
+                            title="Удалить курс"
+                          >
+                            <svg
+                              className="icon-sm"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <polyline points="3,6 5,6 21,6" />
+                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                              <line x1="10" y1="11" x2="10" y2="17" />
+                              <line x1="14" y1="11" x2="14" y2="17" />
+                            </svg>
+                          </button>
+                          <a
+                            href={course.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="u-btn u-btn-primary u-btn-sm"
+                            title="Открыть курс"
+                          >
+                            <svg
+                              className="icon-sm"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                            </svg>
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+                    {/* Форма добавления/редактирования */}
+                    <div className="u-col-12 u-col-lg-5 u-mb-4">
             <div className="admin-card">
               <div className="admin-card-header">
                 <div className="admin-form-header">
@@ -608,166 +769,6 @@ export default function AdminCoursesPage() {
                       </svg>
                       Добавить новый курс
                     </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Список курсов */}
-          <div className="u-col-12 u-col-lg-7">
-            <div className="admin-card">
-              <div className="admin-card-header">
-                <div className="admin-list-header">
-                  <h2 className="admin-card-title">
-                    <svg className="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-                    </svg>
-                    Список курсов ({courses.length})
-                  </h2>
-                  <button className="u-btn u-btn-secondary u-btn-sm" onClick={fetchCourses} disabled={loading}>
-                    <svg className="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="23 4 23 10 17 10" />
-                      <polyline points="1 20 1 14 7 14" />
-                      <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
-                    </svg>
-                    <span style={{ marginLeft: '4px' }}>Обновить</span>
-                  </button>
-                </div>
-              </div>
-
-              <div className="admin-card-body">
-                {loading ? (
-                  <div className="loading-state">
-                    <div className="loading-spinner">
-                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" />
-                      </svg>
-                    </div>
-                    <p>Загрузка курсов...</p>
-                  </div>
-                ) : (
-                  <div className="courses-list">
-                    {courses.map((course) => (
-                      <div key={course.id} className="course-item u-mb-3">
-                        <div className="course-info">
-                          <h3 className="course-title">{course.title}</h3>
-                          <div className="course-meta u-mb-2">
-                            <span className="u-status u-status-primary">{course.platform}</span>
-                            <span className="u-status u-status-secondary">
-                              {course.language === 'ru' ? (
-                                <>
-                                  <svg
-                                    className="icon-xs"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                  >
-                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-                                  </svg>
-                                  RU
-                                </>
-                              ) : (
-                                <>
-                                  <svg
-                                    className="icon-xs"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                  >
-                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-                                  </svg>
-                                  EN
-                                </>
-                              )}
-                            </span>
-                            <span className="u-status u-status-success">{course.credits} кредитов</span>
-                            {course.interactive && (
-                              <span className="u-status u-status-warning">
-                                <svg
-                                  className="icon-xs"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                >
-                                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                                </svg>
-                                Интерактивный
-                              </span>
-                            )}
-                          </div>
-                          <div className="course-tags">
-                            {Object.entries(course.tags)
-                              .filter(([_, value]) => value)
-                              .map(([tag, _]) => (
-                                <span key={tag} className="u-status u-status-light">
-                                  {tag}
-                                </span>
-                              ))}
-                          </div>
-                        </div>
-                        <div className="course-actions">
-                          <button
-                            className="u-btn u-btn-secondary u-btn-sm"
-                            onClick={() => startEdit(course)}
-                            title="Редактировать курс"
-                          >
-                            <svg
-                              className="icon-sm"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                              <path d="m18.5 2.5 a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                            </svg>
-                          </button>
-                          <button
-                            className="u-btn u-btn-danger u-btn-sm"
-                            onClick={() => course.id && handleDelete(course.id)}
-                            title="Удалить курс"
-                          >
-                            <svg
-                              className="icon-sm"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <polyline points="3,6 5,6 21,6" />
-                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                              <line x1="10" y1="11" x2="10" y2="17" />
-                              <line x1="14" y1="11" x2="14" y2="17" />
-                            </svg>
-                          </button>
-                          <a
-                            href={course.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="u-btn u-btn-primary u-btn-sm"
-                            title="Открыть курс"
-                          >
-                            <svg
-                              className="icon-sm"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    ))}
                   </div>
                 )}
               </div>

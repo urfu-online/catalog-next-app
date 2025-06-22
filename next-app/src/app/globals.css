@@ -1402,4 +1402,36 @@ textarea.u-form-control {
   gap: 10px;
 }
 
+/* Стили для лоадера */
+.u-preloader-mini {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.u-preloader-mini-container {
+  animation: rotate 2s linear infinite;
+}
+
+.u-preloader-mini-dot {
+  animation: orbit 2s linear infinite;
+  transform-origin: 24px 24px;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(17.5px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(17.5px) rotate(-360deg);
+  }
+}
+
 
