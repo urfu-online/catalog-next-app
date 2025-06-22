@@ -195,6 +195,7 @@ class DatabaseManager {
       })
     }
 
+    // Применяем фильтры только если в категории есть выбранные значения
     if (languages && languages.length > 0) {
       query += ` AND language IN (${languages.map(() => '?').join(', ')})`
       params.push(...languages)
@@ -216,9 +217,10 @@ class DatabaseManager {
       interactive: Boolean(row.interactive)
     }))
 
-    // Фильтрация по тегам (так как это JSON, делаем это после запроса)
+    // Фильтрация по тегам только если есть выбранные теги
     if (tags && tags.length > 0) {
       courses = courses.filter(course => 
+        // Проверяем, что хотя бы один из выбранных тегов присутствует в курсе
         tags.some(tag => course.tags[tag] === true)
       )
     }

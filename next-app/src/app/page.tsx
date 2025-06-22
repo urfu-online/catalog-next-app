@@ -22,22 +22,22 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [category, setCategory] = useState({
-    'Ядро бакалавриата': true,
-    'Математика и ИТ': true,
-    'Инженерные науки': true,
-    'Экономика и управление': true,
-    'Гуманитарные науки': true,
-    'Естественные науки': true,
-    'Искусственный интеллект': true,
-    'Адаптационный модуль': true,
+    'Ядро бакалавриата': false,
+    'Математика и ИТ': false,
+    'Инженерные науки': false,
+    'Экономика и управление': false,
+    'Гуманитарные науки': false,
+    'Естественные науки': false,
+    'Искусственный интеллект': false,
+    'Адаптационный модуль': false,
   })
   const [language, setLanguage] = useState({
-    'ru': true,
-    'en': true,
+    'ru': false,
+    'en': false,
   })
   const [platform, setPlatform] = useState({
-    'УрФУ.Онлайн': true,
-    'НПОО': true,
+    'УрФУ.Онлайн': false,
+    'НПОО': false,
   })
 
   // Функция для загрузки курсов с API
@@ -57,7 +57,8 @@ export default function Home() {
       const activeCategories = Object.entries(category)
         .filter(([_, value]) => value)
         .map(([key, _]) => key)
-      if (activeCategories.length > 0 && activeCategories.length < 8) {
+      // Отправляем теги только если выбраны НЕ ВСЕ категории
+      if (activeCategories.length < Object.keys(category).length) {
         params.append('tags', activeCategories.join(','))
       }
       
@@ -65,7 +66,8 @@ export default function Home() {
       const activeLanguages = Object.entries(language)
         .filter(([_, value]) => value)
         .map(([key, _]) => key)
-      if (activeLanguages.length > 0 && activeLanguages.length < 2) {
+      // Отправляем языки только если выбраны НЕ ВСЕ языки
+      if (activeLanguages.length < Object.keys(language).length) {
         params.append('languages', activeLanguages.join(','))
       }
       
@@ -73,7 +75,8 @@ export default function Home() {
       const activePlatforms = Object.entries(platform)
         .filter(([_, value]) => value)
         .map(([key, _]) => key)
-      if (activePlatforms.length > 0 && activePlatforms.length < 2) {
+      // Отправляем платформы только если выбраны НЕ ВСЕ платформы
+      if (activePlatforms.length < Object.keys(platform).length) {
         params.append('platforms', activePlatforms.join(','))
       }
       
@@ -114,22 +117,22 @@ export default function Home() {
   const resetAllFilters = () => {
     setSearchTerm('')
     setCategory({
-      'Ядро бакалавриата': true,
-      'Математика и ИТ': true,
-      'Инженерные науки': true,
-      'Экономика и управление': true,
-      'Гуманитарные науки': true,
-      'Естественные науки': true,
-      'Искусственный интеллект': true,
-      'Адаптационный модуль': true,
+      'Ядро бакалавриата': false,
+      'Математика и ИТ': false,
+      'Инженерные науки': false,
+      'Экономика и управление': false,
+      'Гуманитарные науки': false,
+      'Естественные науки': false,
+      'Искусственный интеллект': false,
+      'Адаптационный модуль': false,
     })
     setLanguage({
-      'ru': true,
-      'en': true,
+      'ru': false,
+      'en': false,
     })
     setPlatform({
-      'УрФУ.Онлайн': true,
-      'НПОО': true,
+      'УрФУ.Онлайн': false,
+      'НПОО': false,
     })
   }
 
@@ -230,13 +233,7 @@ export default function Home() {
                         <input 
                           type="checkbox" 
                           checked={language.ru}
-                          onChange={(e) => {
-                            // Предотвращаем снятие последнего языка
-                            if (!e.target.checked && !language.en) {
-                              return
-                            }
-                            setLanguage({ ...language, ru: e.target.checked })
-                          }}
+                          onChange={(e) => setLanguage({ ...language, ru: e.target.checked })}
                         />
                         <span className="u-checkbox-mark"></span>
                         <span className="u-checkbox-text">Русский язык</span>
@@ -247,13 +244,7 @@ export default function Home() {
                         <input 
                           type="checkbox" 
                           checked={language.en}
-                          onChange={(e) => {
-                            // Предотвращаем снятие последнего языка
-                            if (!e.target.checked && !language.ru) {
-                              return
-                            }
-                            setLanguage({ ...language, en: e.target.checked })
-                          }}
+                          onChange={(e) => setLanguage({ ...language, en: e.target.checked })}
                         />
                         <span className="u-checkbox-mark"></span>
                         <span className="u-checkbox-text">Английский язык</span>
@@ -286,13 +277,7 @@ export default function Home() {
                         <input 
                           type="checkbox" 
                           checked={platform['УрФУ.Онлайн']}
-                          onChange={(e) => {
-                            // Предотвращаем снятие последней платформы
-                            if (!e.target.checked && !platform['НПОО']) {
-                              return
-                            }
-                            setPlatform({ ...platform, 'УрФУ.Онлайн': e.target.checked })
-                          }}
+                          onChange={(e) => setPlatform({ ...platform, 'УрФУ.Онлайн': e.target.checked })}
                         />
                         <span className="u-checkbox-mark"></span>
                         <span className="u-checkbox-text">УрФУ.Онлайн</span>
@@ -303,13 +288,7 @@ export default function Home() {
                         <input 
                           type="checkbox" 
                           checked={platform['НПОО']}
-                          onChange={(e) => {
-                            // Предотвращаем снятие последней платформы
-                            if (!e.target.checked && !platform['УрФУ.Онлайн']) {
-                              return
-                            }
-                            setPlatform({ ...platform, 'НПОО': e.target.checked })
-                          }}
+                          onChange={(e) => setPlatform({ ...platform, 'НПОО': e.target.checked })}
                         />
                         <span className="u-checkbox-mark"></span>
                         <span className="u-checkbox-text">НПОО</span>
@@ -368,9 +347,15 @@ export default function Home() {
                 </div>
                 <h3>Курсы не найдены</h3>
                 <p>
-                  {searchTerm && 'Поисковый запрос не дал результатов. '}
-                  {Object.values(category).every(v => !v) && 'Выберите хотя бы одну категорию. '}
-                  {!searchTerm && Object.values(category).some(v => v) && 'Попробуйте изменить настройки фильтров.'}
+                  {searchTerm ? 'Поисковый запрос не дал результатов. ' : ''}
+                  {Object.values(category).every(v => !v) ? 'Выберите хотя бы одну категорию. ' : ''}
+                  {Object.values(language).every(v => !v) ? 'Выберите язык курса. ' : ''}
+                  {Object.values(platform).every(v => !v) ? 'Выберите платформу. ' : ''}
+                  {!searchTerm && 
+                   Object.values(category).some(v => v) && 
+                   Object.values(language).some(v => v) && 
+                   Object.values(platform).some(v => v) ? 
+                   'Попробуйте изменить настройки фильтров.' : ''}
                 </p>
                 <button className="u-btn u-btn-primary" onClick={resetAllFilters}>
                   Сбросить все фильтры
