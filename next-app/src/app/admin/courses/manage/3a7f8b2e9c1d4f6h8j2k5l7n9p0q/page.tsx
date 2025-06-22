@@ -226,22 +226,27 @@ export default function AdminCoursesPage() {
   }
 
   return (
-    <div className="u-page">
+    <div className="admin-page">
       {/* Header */}
-      <header className="u-header u-bg-light">
+      <header className="u-header u-bg-light u-sticky-top">
         <div className="u-container">
-          <div className="u-row u-py-3">
-            <div className="u-col-12 u-col-lg-6 u-mb-3 u-mb-lg-0">
-              <Image src="/urfu_logo.svg" alt="УрФУ" width="275" height="80" className="u-img-responsive" />
+          <div className="header-content">
+            <div className="logo-section">
+              <a href="/" className="logo-link">
+                <Image 
+                  src="/urfu_logo.svg" 
+                  alt="УрФУ" 
+                  width="275" 
+                  height="80" 
+                  className="u-img-responsive" 
+                />
+              
+              </a>
             </div>
-            <div className="u-col-12 u-col-lg-6 u-text-right">
-              <h1 className="admin-title">
-                <svg className="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-                </svg>
-                Администрирование курсов
-              </h1>
-            </div>
+           
+            <h1 className="admin-title">
+              Администрирование курсов
+            </h1>
           </div>
         </div>
       </header>
@@ -269,121 +274,6 @@ export default function AdminCoursesPage() {
         )}
 
         <div className="u-row">
-          {/* Импорт курсов */}
-          <div className="u-col-12 u-mb-4">
-            <div className="admin-card">
-              <div className="admin-card-header">
-                <div className="admin-form-header">
-                  <h2 className="admin-card-title">
-                    <svg className="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7,10 12,15 17,10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    Пакетный импорт курсов
-                  </h2>
-                  {importResult && (
-                    <button type="button" className="u-btn u-btn-secondary u-btn-sm" onClick={clearImportResult}>
-                      Скрыть результат
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              <div className="admin-card-body">
-                <div className="u-form">
-                  <div className="u-form-item">
-                    <label className="u-form-label">Выберите JSON файл с курсами</label>
-                    <div className="file-upload-container">
-                      <input
-                        type="file"
-                        accept=".json"
-                        onChange={handleImport}
-                        disabled={isImporting}
-                        className="file-input"
-                        id="course-import"
-                      />
-                      <label htmlFor="course-import" className="file-upload-label">
-                        <svg className="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                          <polyline points="7,10 12,15 17,10" />
-                          <line x1="12" y1="15" x2="12" y2="3" />
-                        </svg>
-                        {isImporting ? 'Импортируем...' : 'Выбрать JSON файл'}
-                      </label>
-                    </div>
-                    <small className="form-help">
-                      Файл должен содержать объект с массивом courses.
-                      <button
-                        type="button"
-                        className="link-button"
-                        onClick={() => {
-                          const example = {
-                            courses: [
-                              {
-                                title: 'Пример курса',
-                                description: 'Описание курса',
-                                competences: 'Компетенции курса',
-                                credits: 3,
-                                platform: 'УрФУ.Онлайн',
-                                link: 'https://example.com',
-                                interactive: true,
-                                tags: {
-                                  'Ядро бакалавриата': true,
-                                  'Математика и ИТ': false,
-                                },
-                                language: 'ru',
-                              },
-                            ],
-                          }
-                          navigator.clipboard.writeText(JSON.stringify(example, null, 2))
-                          setSuccess('Пример структуры скопирован в буфер обмена!')
-                        }}
-                      >
-                        Скопировать пример структуры
-                      </button>
-                    </small>
-                  </div>
-                </div>
-
-                {/* Результаты импорта */}
-                {importResult && (
-                  <div className="import-results">
-                    <h3>Результаты импорта:</h3>
-                    <div className="import-summary">
-                      <span className="import-stat success">✓ Успешно: {importResult.imported}</span>
-                      <span className="import-stat error">✗ Ошибки: {importResult.failed}</span>
-                    </div>
-
-                    {importResult.details.successful.length > 0 && (
-                      <div className="import-section">
-                        <h4>Успешно импортированы:</h4>
-                        <ul className="import-list success">
-                          {importResult.details.successful.map((course: string, index: number) => (
-                            <li key={index}>{course}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {importResult.details.failed.length > 0 && (
-                      <div className="import-section">
-                        <h4>Ошибки импорта:</h4>
-                        <ul className="import-list error">
-                          {importResult.details.failed.map((fail: any, index: number) => (
-                            <li key={index}>
-                              <strong>{fail.course}:</strong> {fail.error}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
 
 
           {/* Список курсов */}
@@ -545,8 +435,9 @@ export default function AdminCoursesPage() {
               </div>
             </div>
           </div>
-                    {/* Форма добавления/редактирования */}
-                    <div className="u-col-12 u-col-lg-5 u-mb-4">
+
+          {/* Форма добавления/редактирования */}
+          <div className="u-col-12 u-col-lg-5 u-mb-4">
             <div className="admin-card">
               <div className="admin-card-header">
                 <div className="admin-form-header">
@@ -769,6 +660,120 @@ export default function AdminCoursesPage() {
                       </svg>
                       Добавить новый курс
                     </button>
+                  </div>
+                )}
+              </div>
+            </div>
+         
+                    {/* Импорт курсов */}
+                    
+            <div className="admin-card">
+              <div className="admin-card-header">
+                <div className="admin-form-header">
+                  <h2 className="admin-card-title">
+                    <svg className="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7,10 12,15 17,10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Пакетный импорт курсов
+                  </h2>
+                  {importResult && (
+                    <button type="button" className="u-btn u-btn-secondary u-btn-sm" onClick={clearImportResult}>
+                      Скрыть результат
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="admin-card-body">
+                <div className="u-form">
+                  <div className="u-form-item">
+                    <label className="u-form-label">Выберите JSON файл с курсами</label>
+                    <div className="file-upload-container">
+                      <input
+                        type="file"
+                        accept=".json"
+                        onChange={handleImport}
+                        disabled={isImporting}
+                        className="file-input"
+                        id="course-import"
+                      />
+                      <label htmlFor="course-import" className="file-upload-label">
+                        <svg className="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="7,10 12,15 17,10" />
+                          <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        {isImporting ? 'Импортируем...' : 'Выбрать JSON файл'}
+                      </label>
+                    </div>
+                    <small className="form-help">
+                      Файл должен содержать объект с массивом courses.
+                      <button
+                        type="button"
+                        className="link-button"
+                        onClick={() => {
+                          const example = {
+                            courses: [
+                              {
+                                title: 'Пример курса',
+                                description: 'Описание курса',
+                                competences: 'Компетенции курса',
+                                credits: 3,
+                                platform: 'УрФУ.Онлайн',
+                                link: 'https://example.com',
+                                interactive: true,
+                                tags: {
+                                  'Ядро бакалавриата': true,
+                                  'Математика и ИТ': false,
+                                },
+                                language: 'ru',
+                              },
+                            ],
+                          }
+                          navigator.clipboard.writeText(JSON.stringify(example, null, 2))
+                          setSuccess('Пример структуры скопирован в буфер обмена!')
+                        }}
+                      >
+                        Скопировать пример структуры
+                      </button>
+                    </small>
+                  </div>
+                </div>
+
+                {/* Результаты импорта */}
+                {importResult && (
+                  <div className="import-results">
+                    <h3>Результаты импорта:</h3>
+                    <div className="import-summary">
+                      <span className="import-stat success">✓ Успешно: {importResult.imported}</span>
+                      <span className="import-stat error">✗ Ошибки: {importResult.failed}</span>
+                    </div>
+
+                    {importResult.details.successful.length > 0 && (
+                      <div className="import-section">
+                        <h4>Успешно импортированы:</h4>
+                        <ul className="import-list success">
+                          {importResult.details.successful.map((course: string, index: number) => (
+                            <li key={index}>{course}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {importResult.details.failed.length > 0 && (
+                      <div className="import-section">
+                        <h4>Ошибки импорта:</h4>
+                        <ul className="import-list error">
+                          {importResult.details.failed.map((fail: any, index: number) => (
+                            <li key={index}>
+                              <strong>{fail.course}:</strong> {fail.error}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
